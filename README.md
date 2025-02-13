@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Expense Tracking and Budget Alert Platform
+
+## Overview
+
+The Expense Tracking and Budget Alert Platform is a web application that helps users track their spending and receive timely budget notifications. By leveraging the Plaid API for secure transaction fetching and Next.js for optimal performance, the platform provides a seamless expense monitoring experience.
+
+### Problem
+
+Many people struggle to maintain consistent awareness of their spending habits and often exceed their budgets without realizing it until it's too late. Traditional banking apps typically show transactions after the fact, and manual expense tracking is time-consuming and prone to errors. There's a need for an automated solution that provides real-time insights and proactive notifications about spending patterns.
+
+### User Profile
+
+- Budget-conscious individuals who want to:
+  - Track their expenses automatically
+  - Receive notifications before exceeding budget limits
+  - Set and monitor financial goals
+  - Access their financial data quickly without complex login processes
+
+### Features
+
+#### Core Features
+
+- As a user, I want to connect my bank accounts securely using Plaid
+- As a user, I want to set custom budget limits for different expense categories
+- As a user, I want to receive notifications when approaching budget limits
+- As a user, I want to see my expenses categorized automatically
+- As a user, I want to receive email alerts for unusual spending patterns
+
+#### Future Features
+
+- Gamified rewards system for meeting budget goals
+- Group saving features with couples and family
+- Mobile app version
+- Custom category creation
+
+## Implementation
+
+### Tech Stack
+
+#### Frontend
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Chart.js for visualizations
+
+#### Backend
+
+- Next.js API routes
+- mongoose
+- mongoDB
+- Node.js
+
+#### External Services
+
+- Plaid API for bank integration
+- Vercel for deployment
+
+### External APIs
+
+- Plaid API
+  - Account linking
+  - Transaction fetching
+  - Balance checking
+
+### Sitemap
+
+- Home page
+- Budget Setup
+- Transaction History
+
+### Data
+
+To be announced
+
+### Endpoints
+
+To be announced
+
+## Roadmap
+
+### **Day 1: Setup**
+
+- Initialize Next.js project
+- Install dependencies (Tailwind, Knex, MySQL)
+- Configure `.env` for database connection
+
+### **Day 2: Database & Migrations**
+
+- Define transactions, budgets tables
+- Run migrations & seed sample data
+
+### **Day 3: Backend API (Transactions & Budgets)**
+
+- Create `/api/transactions` & `/api/budgets`
+- Implement CRUD operations with Knex.js
+
+### **Day 4: Dashboard UI**
+
+- Create dashboard layout
+- Display budget & transactions
+
+### **Day 5: Budget Alerts**
+
+- Implement alerts
+- Add real-time notifications
+
+### **Day 6: Transaction List & Filters**
+
+- Create transactions page
+
+### **Day 7: Charts & Visualizations**
+
+- Integrate Chart.js for spending trends
+- Add category breakdown charts
+
+### **Day 8: UI Enhancements**
+
+- Improve styling & responsiveness
+
+### **Day 9: Testing & Debugging**
+
+- Test APIs & UI interactions
+- Fix bugs & optimize performance
+
+### **Day 10: Final Review & Deployment**
+
+- Deploy on Vercel
+- Finalized README.md
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up environment variables:
+   ```
+   To be announced
+   ```
+4. Run the development server: `npm run dev`
+5. Open [http://localhost:3000](http://localhost:3000)
