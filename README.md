@@ -24,7 +24,6 @@ Many people struggle to maintain consistent awareness of their spending habits a
 - As a user, I want to set custom budget limits for different expense categories
 - As a user, I want to receive notifications when approaching budget limits
 - As a user, I want to see my expenses categorized automatically
-- As a user, I want to receive email alerts for unusual spending patterns
 
 #### Future Features
 
