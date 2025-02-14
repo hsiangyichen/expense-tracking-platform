@@ -64,9 +64,23 @@ Many people struggle to maintain consistent awareness of their spending habits a
 
 ### Sitemap
 
-- Home page
-- Budget Setup
+- Home page (dashboard)
+  - Sidebar
+  - Categories overview
+  - Connect bank model
+- My banks and cards
+  - Sidebar
+  - Banks and cards overview
+  - Connect bank button
 - Transaction History
+  - Sidebar
+  - List of Transactions
+- Budget & Categories
+  - Sidebar
+  - Set & Track Budget by Category
+  - View Spending Progress
+- Connect bank model
+  - Secure Bank Integration (Plaid API)
 
 ### Data
 
