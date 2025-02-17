@@ -2,18 +2,16 @@ import React from "react";
 import Image from "next/image";
 import { UserButton, useClerk } from "@clerk/nextjs";
 
-const Footer = ({ user, type }: FooterProps) => {
+const Footer = ({ user }: FooterProps) => {
   const { signOut } = useClerk();
 
   return (
     <footer className="footer">
-      <div className={type === "mobile" ? "footer_name-mobile" : "footer_name"}>
+      <div className="footer_name">
         <UserButton />
       </div>
 
-      <div
-        className={type === "mobile" ? "footer_email-mobile" : "footer_email"}
-      >
+      <div className="footer_email">
         <h1 className="text-14 truncate text-gray-700 font-semibold">
           {user?.firstName} {user?.lastName}
         </h1>

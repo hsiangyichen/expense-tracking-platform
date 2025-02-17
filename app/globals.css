@@ -336,31 +336,20 @@
 
   /* Footer */
   .footer {
-    @apply flex cursor-pointer items-center justify-between gap-2 py-6;
+    /* @apply flex cursor-pointer items-center justify-between gap-2 py-6; */
+    @apply flex flex-row md:flex-col cursor-pointer xl:flex-row items-center justify-center gap-2 py-6;
   }
 
   .footer_name {
-    @apply flex items-center justify-center;
+    @apply flex items-center justify-center xl:flex;
   }
 
   .footer_email {
-    @apply flex flex-1 flex-col justify-center max-xl:hidden;
-  }
-
-  .footer_name-mobile {
-    @apply flex size-10 items-center justify-center;
-  }
-
-  .footer_email-mobile {
-    @apply flex flex-1 flex-col justify-center;
+    @apply flex flex-1 flex-col justify-center md:hidden xl:flex pr-4;
   }
 
   .footer_image {
-    @apply relative size-5 max-xl:w-full max-xl:flex max-xl:justify-center max-xl:items-center;
-  }
-
-  .footer_image-mobile {
-    @apply relative size-5;
+    @apply relative size-5 flex md:hidden xl:min-w-max xl:flex xl:justify-center xl:items-center;
   }
 
   /* Sidebar */
