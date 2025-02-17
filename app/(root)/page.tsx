@@ -2,9 +2,22 @@ import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
+import { currentUser } from "@clerk/nextjs/server";
 
-const Home = () => {
-  const loggedIn = { firstName: "Michelle", lastName: "Chen" };
+const Home = async () => {
+  const loggedIn = await currentUser();
+
+  if (!loggedIn) {
+    throw new Error("You must be signed in to use this feature");
+  }
+
+  const userData = {
+    id: loggedIn.id,
+    firstName: loggedIn.firstName,
+    lastName: loggedIn.lastName,
+    email: loggedIn.emailAddresses[0].emailAddress,
+  };
+
   return (
     <section className="home">
       <div className="home-content">
@@ -12,7 +25,7 @@ const Home = () => {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn?.firstName || "Guest"}
+            user={userData?.firstName || "Guest"}
             subtext="Access and manage your account anf transactions efficiently."
           />
           <TotalBalanceBox
@@ -24,7 +37,7 @@ const Home = () => {
         Recent Transactions
       </div>
       <RightSidebar
-        user={loggedIn}
+        user={userData}
         transactions={[]}
         banks={[{ currentBalance: 123.5 }, { currentBalance: 500.23 }]}
       />
