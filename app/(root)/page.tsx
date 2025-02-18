@@ -22,7 +22,6 @@ const Home = async () => {
   };
 
   // const balanceRes = await fetchBalance();
-  // console.log(balanceRes);
 
   return (
     <section className="home">

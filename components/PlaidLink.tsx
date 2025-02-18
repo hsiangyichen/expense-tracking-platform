@@ -11,12 +11,12 @@ const PlaidLink = () => {
 
   const { open } = usePlaidLink({
     token: linkToken,
+    onExit: () => setIsLoading(false),
     onSuccess: async (publicToken) => {
       const { data: accessToken } = await postCreateAccessToken(publicToken);
       setPlaidAccessToken(accessToken);
       setIsLoading(false);
     },
-    onExit: () => setIsLoading(false),
   });
 
   useEffect(() => {
