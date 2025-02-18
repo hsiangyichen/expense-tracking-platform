@@ -3,19 +3,20 @@ import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
 import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 const Home = async () => {
   const loggedIn = await currentUser();
 
   if (!loggedIn) {
-    throw new Error("You must be signed in to use this feature");
+    redirect("/");
   }
 
-  const userData = {
-    id: loggedIn.id,
-    firstName: loggedIn.firstName,
-    lastName: loggedIn.lastName,
-    email: loggedIn.emailAddresses[0].emailAddress,
+  const user = {
+    id: loggedIn?.id ?? "",
+    firstName: loggedIn?.firstName ?? "Guest",
+    lastName: loggedIn?.lastName ?? "",
+    email: loggedIn?.emailAddresses?.[0]?.emailAddress ?? "",
   };
 
   return (
@@ -25,8 +26,8 @@ const Home = async () => {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={userData?.firstName || "Guest"}
-            subtext="Access and manage your account anf transactions efficiently."
+            user={user?.firstName || "Guest"}
+            subtext="Access and manage your account and transactions efficiently."
           />
           <TotalBalanceBox
             accounts={[]}
@@ -37,7 +38,7 @@ const Home = async () => {
         Recent Transactions
       </div>
       <RightSidebar
-        user={userData}
+        user={user}
         transactions={[]}
         banks={[{ currentBalance: 123.5 }, { currentBalance: 500.23 }]}
       />
