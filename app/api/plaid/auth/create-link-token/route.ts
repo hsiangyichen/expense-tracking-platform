@@ -15,6 +15,7 @@ export const POST = withMongoDb(async (req) => {
     language: "en",
     redirect_uri: "http://localhost:3000/",
     country_codes: [CountryCode.Us],
+    // institution_id: "ins_1",
   };
 
   try {

@@ -2,10 +2,13 @@
 
 import { setPlaidAccessToken } from "@/lib/api/axios";
 import { postCreateAccessToken, postCreateLinkToken } from "@/lib/api/plaid";
+import { setPlaidConnection } from "@/lib/slices/plaidSlice";
+import { useAppDispatch } from "@/lib/store/store.hooks";
 import React, { useEffect, useState } from "react";
 import { usePlaidLink } from "react-plaid-link";
 
 const PlaidLink = () => {
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [linkToken, setLinkToken] = useState(null);
 
@@ -15,6 +18,7 @@ const PlaidLink = () => {
     onSuccess: async (publicToken) => {
       const { data: accessToken } = await postCreateAccessToken(publicToken);
       setPlaidAccessToken(accessToken);
+      dispatch(setPlaidConnection(accessToken));
       setIsLoading(false);
     },
   });
