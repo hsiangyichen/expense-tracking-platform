@@ -1,8 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
-import HttpStatusCode from "@/types/HttpStatusCode";
 import { NextRequest, NextResponse } from "next/server";
 import mongooseClient from "./mongooseClient";
-import { STATUS_CODES } from "http";
 import { User } from "@clerk/backend";
 
 export interface NextRequestWithUser extends NextRequest {
@@ -12,17 +10,16 @@ export const withMongoDb = (
   handler: (req: NextRequestWithUser) => Promise<NextResponse>
 ) => {
   return async (req: NextRequestWithUser): Promise<NextResponse> => {
-    // Fix return type
     try {
       const user = await currentUser();
 
       if (!user) {
         return NextResponse.json(
           {
-            code: HttpStatusCode.UNAUTHORIZED,
-            message: STATUS_CODES[HttpStatusCode.UNAUTHORIZED],
+            code: 401,
+            message: "Unauthorized",
           },
-          { status: HttpStatusCode.UNAUTHORIZED }
+          { status: 401 }
         );
       }
 
@@ -35,10 +32,10 @@ export const withMongoDb = (
     } catch {
       return NextResponse.json(
         {
-          code: HttpStatusCode.INTERNAL_SERVER_ERROR,
-          message: STATUS_CODES[HttpStatusCode.INTERNAL_SERVER_ERROR],
+          code: 500,
+          message: "Internal Server Error",
         },
-        { status: HttpStatusCode.INTERNAL_SERVER_ERROR }
+        { status: 500 }
       );
     }
   };
