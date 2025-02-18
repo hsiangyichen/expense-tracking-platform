@@ -2,8 +2,10 @@ import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
-import { currentUser } from "@clerk/nextjs/server";
+
 import { redirect } from "next/navigation";
+import { fetchBalance } from "@/lib/api/plaid";
+import { currentUser } from "@clerk/nextjs/server";
 
 const Home = async () => {
   const loggedIn = await currentUser();
@@ -18,6 +20,9 @@ const Home = async () => {
     lastName: loggedIn?.lastName ?? "",
     email: loggedIn?.emailAddresses?.[0]?.emailAddress ?? "",
   };
+
+  // const balanceRes = await fetchBalance();
+  // console.log(balanceRes);
 
   return (
     <section className="home">

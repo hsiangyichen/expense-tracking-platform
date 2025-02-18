@@ -2,22 +2,24 @@
 
 import { postLogin } from "@/lib/api/auth";
 import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const AuthCallback = () => {
+  const router = useRouter();
   const { getToken } = useAuth();
 
   useEffect(() => {
     const fetchToken = async () => {
       try {
         await postLogin();
-      } catch (error) {
-        console.error("Error getting token:", error);
+      } catch {
+        router.push("/sign-in");
       }
     };
 
     fetchToken();
-  }, [getToken]);
+  }, [getToken, router]);
 
   return null;
 };
