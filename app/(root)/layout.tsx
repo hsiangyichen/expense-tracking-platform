@@ -1,19 +1,26 @@
 import MobileNav from "@/components/MobileNav";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { setToken } from "@/lib/api/axios";
+// import { fetchBalance } from "@/lib/api/plaid";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const loggedIn = await currentUser();
+  const [loggedIn, { getToken }] = await Promise.all([currentUser(), auth()]);
+  const token = await getToken();
 
-  if (!loggedIn) {
+  if (!loggedIn || !token) {
     redirect("/");
   }
+
+  setToken(token);
+
+  // const balanceRes = await fetchBalance();
 
   const user = {
     id: loggedIn?.id ?? "",
