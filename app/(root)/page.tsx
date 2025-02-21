@@ -1,10 +1,12 @@
 import { HeaderBox } from "@/components/HeaderBox";
+import { RecentTransactions } from "@/components/RecentTransactions";
 import { HeroBox } from "@/components/HeroBox";
 import React from "react";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import { getAccountStats } from "@/lib/actions/account.action";
-import { PlaidAccountItem } from "@/types";
+import { PlaidAccountItem, PlaidTransaction } from "@/types";
+import { getTransactionStats } from "@/lib/actions/transaction.action";
 
 const Home = async () => {
   const loggedIn = await currentUser();
@@ -23,6 +25,7 @@ const Home = async () => {
   let accounts: PlaidAccountItem[] = [];
   let totalAccounts = 0;
   let totalCurrentBalance = 0;
+  let transactions: PlaidTransaction[] = [];
 
   try {
     // Fetch account statistics
@@ -30,6 +33,16 @@ const Home = async () => {
     accounts = accountStats.accounts;
     totalAccounts = accountStats.totalAccounts;
     totalCurrentBalance = accountStats.totalCurrentBalance;
+
+    // Fetch transaction statistics
+    if (accounts.length > 0) {
+      try {
+        const transactionStats = await getTransactionStats(user.id);
+        transactions = transactionStats.transactions;
+      } catch (txError) {
+        console.error("Error fetching transaction stats:", txError);
+      }
+    }
   } catch (error) {
     console.error("Error fetching account stats:", error);
   }
@@ -50,6 +63,7 @@ const Home = async () => {
             totalCurrentBalance={totalCurrentBalance}
           />
         </header>
+        <RecentTransactions accounts={accounts} transactions={transactions} />
       </div>
     </section>
   );
