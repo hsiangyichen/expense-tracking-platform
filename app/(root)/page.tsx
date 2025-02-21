@@ -1,4 +1,5 @@
 import { HeaderBox } from "@/components/HeaderBox";
+import { RightSidebar } from "@/components/RightSidebar";
 import { RecentTransactions } from "@/components/RecentTransactions";
 import { HeroBox } from "@/components/HeroBox";
 import React from "react";
@@ -65,6 +66,11 @@ const Home = async () => {
         </header>
         <RecentTransactions accounts={accounts} transactions={transactions} />
       </div>
+      <RightSidebar
+        user={user}
+        transactions={transactions}
+        accounts={accounts}
+      />
     </section>
   );
 };
