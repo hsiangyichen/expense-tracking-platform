@@ -21,6 +21,7 @@ const PlaidLink = ({
       try {
         setLoading(true);
         const { link_token } = await createLinkToken(user.id);
+        console.log("link_token", link_token);
         setToken(link_token);
       } catch (err) {
         console.error("Error creating link token:", err);
@@ -35,10 +36,12 @@ const PlaidLink = ({
 
   const onSuccess = useCallback(
     async (public_token: string) => {
+      console.log("public_token", public_token);
       try {
         setLoading(true);
         setError(null);
         await exchangePublicToken(public_token, user.id);
+
         await revalidateAccounts();
       } catch (err) {
         console.error("Error exchanging public token:", err);

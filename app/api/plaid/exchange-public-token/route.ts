@@ -5,6 +5,8 @@ export async function POST(request: Request) {
   try {
     const { public_token, userId } = await request.json();
 
+    console.log("public_token", public_token);
+
     if (!public_token) {
       return NextResponse.json(
         { error: "public_token is required" },

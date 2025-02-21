@@ -5,9 +5,6 @@ import { createAdminClient } from "../appwrite";
 import { UserDetails } from "@/types";
 import { Query, ID } from "node-appwrite";
 
-const DATABASE_ID = process.env.APPWRITE_DATABASE_ID;
-const USER_COLLECTION_ID = process.env.APPWRITE_USER_COLLECTION_ID;
-
 /**
  * Syncs the current user's data from Clerk to Appwrite
  */
@@ -43,16 +40,16 @@ async function upsertUserDetails(userDetails: UserDetails) {
     const { databases } = await createAdminClient();
 
     const existingUser = await databases.listDocuments(
-      DATABASE_ID!,
-      USER_COLLECTION_ID!,
+      process.env.APPWRITE_DATABASE_ID!,
+      process.env.APPWRITE_USER_COLLECTION_ID!,
       [Query.equal("id", userDetails.id)]
     );
 
     if (existingUser.documents.length > 0) {
       const documentId = existingUser.documents[0].$id;
       return await databases.updateDocument(
-        DATABASE_ID!,
-        USER_COLLECTION_ID!,
+        process.env.APPWRITE_DATABASE_ID!,
+        process.env.APPWRITE_USER_COLLECTION_ID!,
         documentId,
         {
           id: userDetails.id,
@@ -63,8 +60,8 @@ async function upsertUserDetails(userDetails: UserDetails) {
       );
     } else {
       return await databases.createDocument(
-        DATABASE_ID!,
-        USER_COLLECTION_ID!,
+        process.env.APPWRITE_DATABASE_ID!,
+        process.env.APPWRITE_USER_COLLECTION_ID!,
         ID.unique(),
         {
           id: userDetails.id,
