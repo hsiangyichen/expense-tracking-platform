@@ -69,6 +69,6 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams): string {
     );
   } catch (error) {
     console.error("Error formatting URL query:", error);
-    return window.location.pathname;
+    return window.location.pathname; // Fallback to current path without query
   }
 }
