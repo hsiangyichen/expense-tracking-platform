@@ -1,21 +1,23 @@
+import { Home, Wallet2, Receipt, PieChart } from "lucide-react";
+
 export const sidebarLinks = [
   {
-    imgURL: "/icons/home.svg",
+    icon: Home,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/icons/dollar-circle.svg",
+    icon: Wallet2,
     route: "/banks-and-cards",
     label: "My Banks & Cards",
   },
   {
-    imgURL: "/icons/transaction.svg",
+    icon: Receipt,
     route: "/transaction-history",
     label: "Transaction History",
   },
   {
-    imgURL: "/icons/chart.svg",
+    icon: PieChart,
     route: "/budget-and-categories",
     label: "Budget & Categories",
   },
