@@ -21,12 +21,14 @@ export async function fetchAndStoreAccounts(
     throw new Error("itemId is required");
   }
 
+  // Get access token and institution info
   const accessToken = await getAccessTokenForItem(userId, itemId);
   const { institutionId, institutionName } = await getItemInstitution(
     userId,
     itemId
   );
 
+  // Get accounts from Plaid API
   const accountsResponse = await plaidClient.accountsGet({
     access_token: accessToken,
   });
@@ -188,7 +190,7 @@ export const getAccountStats = cache(
 
     const { databases } = await createAdminClient();
 
-    // Get all accounts
+    // Get all active accounts
     const accountsResponse = await databases.listDocuments(
       process.env.APPWRITE_DATABASE_ID!,
       process.env.APPWRITE_ACCOUNT_COLLECTION_ID!,

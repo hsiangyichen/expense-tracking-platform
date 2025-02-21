@@ -5,6 +5,8 @@ import { createAdminClient } from "@/lib/appwrite";
 import { ID, Query } from "node-appwrite";
 import { CountryCode } from "plaid";
 import { PlaidExchangeResponse } from "@/types";
+import { fetchAndStoreAccounts } from "./account.action";
+import { fetchAndStoreTransactions } from "./transaction.action";
 
 /**
  * Exchanges a public token for an access token and stores the connection
@@ -28,6 +30,8 @@ export async function exchangePublicToken(
 
   const accessToken = tokenResponse.data.access_token;
   const itemId = tokenResponse.data.item_id;
+
+  // Get institution information
   const institutionInfo = await getInstitutionInfo(accessToken);
 
   // Store or update the connection
@@ -38,6 +42,23 @@ export async function exchangePublicToken(
     institutionInfo.name,
     institutionInfo.id
   );
+
+  // Automatically fetch and store accounts after successful connection
+  try {
+    await fetchAndStoreAccounts(userId, itemId);
+  } catch (accountError) {
+    console.error("Error fetching accounts after connection:", accountError);
+  }
+
+  // Automatically fetch and store transactions after successful connection
+  try {
+    await fetchAndStoreTransactions(userId, itemId);
+  } catch (transactionError) {
+    console.error(
+      "Error fetching transactions after connection:",
+      transactionError
+    );
+  }
 
   return {
     success: true,
@@ -67,6 +88,7 @@ async function getInstitutionInfo(accessToken: string) {
       institutionName = institutionResponse.data.institution.name;
     } catch (instError) {
       console.error("Error fetching institution details:", instError);
+      // Continue with default institution name
     }
   }
 
