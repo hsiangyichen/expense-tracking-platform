@@ -50,7 +50,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
           <TableHead className="px-2">Date</TableHead>
           <TableHead className="px-2">Amount</TableHead>
           <TableHead className="pl-6">Channel</TableHead>
-          <TableHead className="px-2 xl:hidden">Category</TableHead>
+          <TableHead className="px-2 ">Category</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -91,10 +91,10 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                 <TableCell className={`text-nowrap ${amountClass}`}>
                   {amountText}
                 </TableCell>
-                <TableCell className="pl-6  capitalize">
+                <TableCell className="pl-6 capitalize">
                   {transaction.paymentChannel}
                 </TableCell>
-                <TableCell className="xl:hidden w-32">
+                <TableCell className="w-32">
                   <CategoryBadge category={transaction.category} />
                 </TableCell>
               </TableRow>

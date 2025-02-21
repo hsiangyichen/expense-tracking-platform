@@ -28,7 +28,9 @@ const Sidebar = ({ user }: SidebarProps) => {
             className="w-32"
           />
         </Link>
+
         {sidebarLinks.map((link) => {
+          const Icon = link.icon;
           const isActive =
             pathname === link.route || pathname.startsWith(`${link.route}/`);
 
@@ -37,22 +39,25 @@ const Sidebar = ({ user }: SidebarProps) => {
               href={link.route}
               key={link.label}
               className={cn(
-                "flex gap-3 items-center min-w-max py-1 md:p-3 2xl:p-4 rounded-lg justify-center xl:justify-start",
-                { "bg-gray-600": isActive }
+                "flex gap-3 items-center min-w-max py-1 md:py-3 2xl:py-4 rounded-lg justify-center xl:justify-start border-b-[1.5px] border-transparent transition-all duration-200",
+                {
+                  "border-zinc-500": isActive,
+                  "hover:border-zinc-200 hover:shadow-sm": !isActive,
+                }
               )}
             >
               <div className="relative size-6">
-                <Image
-                  src={link.imgURL}
-                  alt={link.label}
-                  fill
-                  className={cn({ "brightness-[3] invert-0": isActive })}
+                <Icon
+                  className={cn(
+                    "size-6",
+                    isActive ? "text-zinc-500" : "text-zinc-800"
+                  )}
                 />
               </div>
               <p
                 className={cn(
-                  "text-16 font-semibold text-neutral-800 max-xl:hidden",
-                  { "!text-white": isActive }
+                  "text-16 font-semibold text-zinc-800 max-xl:hidden",
+                  { "text-zinc-500": isActive }
                 )}
               >
                 {link.label}

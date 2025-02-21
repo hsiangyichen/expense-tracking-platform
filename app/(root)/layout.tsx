@@ -1,3 +1,4 @@
+import { MobileSidebar } from "@/components/MobileSidebar";
 import { Sidebar } from "@/components/Sidebar";
 import Image from "next/image";
 import { auth, currentUser } from "@clerk/nextjs/server";
@@ -25,6 +26,7 @@ export default async function RootLayout({
   return (
     <main className="flex h-screen w-full">
       <Sidebar user={user} />
+
       <div className="flex size-full flex-col">
         <div className="flex h-16 items-center justify-between p-5 shadow-creditCard sm:p-8 md:hidden">
           <Image
@@ -34,6 +36,9 @@ export default async function RootLayout({
             height={30}
             className="w-28"
           />
+          <div>
+            <MobileSidebar user={user} />
+          </div>
         </div>
         {children}
       </div>

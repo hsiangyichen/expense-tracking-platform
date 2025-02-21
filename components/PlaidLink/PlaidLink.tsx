@@ -2,11 +2,16 @@
 
 import React, { useState, useCallback } from "react";
 import { usePlaidLink } from "react-plaid-link";
+import { cn } from "@/lib/utils";
+import { CreditCard } from "lucide-react";
 import { revalidateAccounts } from "@/lib/actions/revalidation.action";
 import { createLinkToken, exchangePublicToken } from "@/lib/services/plaid";
 import { PlaidLinkProps } from "./PlaidLink.types";
 
-const PlaidLink = ({ user }: PlaidLinkProps) => {
+const PlaidLink = ({
+  user,
+  className,
+}: PlaidLinkProps & { className?: string }) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,10 +38,7 @@ const PlaidLink = ({ user }: PlaidLinkProps) => {
       try {
         setLoading(true);
         setError(null);
-
         await exchangePublicToken(public_token, user.id);
-
-        // Revalidate account data to see changes without full refresh
         await revalidateAccounts();
       } catch (err) {
         console.error("Error exchanging public token:", err);
@@ -54,28 +56,38 @@ const PlaidLink = ({ user }: PlaidLinkProps) => {
     onExit: (err) => {
       if (err) {
         console.error("User exited with error:", err);
-      } else {
-        console.log("User exited Plaid Link");
       }
     },
   });
 
   return (
-    <div className="space-y-3">
+    <div className={cn("relative", className)}>
       <button
         onClick={() => open()}
         disabled={!ready || !token || loading}
-        className={`w-full py-2 rounded-md text-white ${
-          !ready || !token || loading
-            ? "text-zinc-400 cursor-not-allowed"
-            : "text-zinc-500 hover:text-zinc-900"
-        }`}
+        className={cn(
+          "flex gap-3 items-center min-w-max py-1 md:py-3 2xl:py-4 rounded-lg md:max-xl:justify-center xl:justify-start border-b-[1px] border-transparent w-full transition-all duration-200",
+          {
+            "opacity-50 cursor-not-allowed": !ready || !token || loading,
+            "hover:border-b-[1px] !hover:border-zinc-200":
+              ready && token && !loading,
+          }
+        )}
         type="button"
       >
-        {loading ? "Loading..." : "Connect Bank"}
+        <div className="relative size-6">
+          <CreditCard className="size-6 text-neutral-800" />
+        </div>
+        <p className="text-16 font-semibold text-neutral-800 md:max-xl:hidden">
+          {loading ? "Connecting..." : "Connect Bank"}
+        </p>
       </button>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && (
+        <p className="text-red-500 text-sm absolute bottom-[-24px] left-0">
+          {error}
+        </p>
+      )}
     </div>
   );
 };
