@@ -39,7 +39,7 @@ const Sidebar = ({ user }: SidebarProps) => {
   });
 
   return (
-    <section className="sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-gray-200 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 2xl:w-[355px]">
+    <section className="sticky left-0 top-0 flex h-screen w-fit flex-col justify-between border-r border-gray-200 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 ">
       <nav className="flex flex-col gap-4">
         <Link
           href="/"
@@ -61,7 +61,7 @@ const Sidebar = ({ user }: SidebarProps) => {
               href={link.route}
               key={link.label}
               className={cn(
-                "flex gap-3 items-center min-w-max py-1 md:py-3 2xl:py-4 rounded-lg justify-center xl:justify-start border-b-[1.5px] border-transparent transition-all duration-200",
+                "flex gap-3 items-center min-w-max py-1 md:py-3 max-xl:py-4 rounded-lg justify-center xl:justify-start border-b-[1.5px] border-transparent transition-all duration-200",
                 {
                   "border-stone-400": isActive,
                   "hover:border-stone-200 hover:shadow-sm": !isActive,
@@ -80,7 +80,9 @@ const Sidebar = ({ user }: SidebarProps) => {
               <p
                 className={cn(
                   "text-16 font-medium text-stone-800 max-xl:hidden",
-                  { "text-stone-500": isActive }
+                  {
+                    "text-stone-500": isActive,
+                  }
                 )}
               >
                 {link.label}
