@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { UserButton, useClerk } from "@clerk/nextjs";
 import { FooterProps } from "./Footer.types";
+import { LogOut } from "lucide-react";
 
 const Footer = ({ user }: FooterProps) => {
   const { signOut } = useClerk();
@@ -26,7 +26,10 @@ const Footer = ({ user }: FooterProps) => {
         className="relative size-5 flex md:hidden xl:min-w-max xl:flex xl:justify-center xl:items-center"
         onClick={() => signOut()}
       >
-        <Image src="/icons/logout.svg" fill alt="log out" />
+        <LogOut
+          strokeWidth={1.75}
+          className="hover:text-stone-400 text-stone-700 size-5 transition-all duration-200"
+        />
       </div>
     </footer>
   );

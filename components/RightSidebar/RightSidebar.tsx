@@ -5,8 +5,8 @@ import { PlaidLink } from "@/components/PlaidLink";
 
 const RightSidebar = ({ user, accounts, transactions }: RightSidebarProps) => {
   return (
-    <aside className="flex-col xl:flex w-[365px] my-12 mr-8 hidden h-screen max-h-screen">
-      <section className="flex flex-col justify-between gap-8 px-6 p-12 pt-6 rounded-xl border border-stone-200  shadow-sm">
+    <aside className="flex-col 2xl:flex w-[365px] my-12 mr-8 hidden h-screen max-h-screen">
+      <section className="flex flex-col justify-between gap-8 px-6 p-12 pt-6 rounded-xl border border-stone-200 shadow-sm">
         <div className="flex w-full justify-between">
           <h2 className="header-2">My Cards</h2>
           <PlaidLink user={user} type="right-sidebar" />
