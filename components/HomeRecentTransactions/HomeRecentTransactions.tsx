@@ -118,11 +118,6 @@ const HomeRecentTransactions = ({
           return (
             selectedAccountId === account.accountId && (
               <div key={account.id} className="space-y-4">
-                <AccountInfo
-                  account={account}
-                  accountId={account.accountId}
-                  type="full"
-                />
                 <TransactionsTable transactions={accountTransactions} />
                 {accountTransactions.length > 10 && (
                   <div className="my-4 w-full">{/* <Pagination /> */}</div>

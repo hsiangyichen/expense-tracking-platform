@@ -1,4 +1,3 @@
-import { HeaderBox } from "@/components/HeaderBox";
 import { RightSidebar } from "@/components/RightSidebar";
 import { HomeRecentTransactions } from "@/components/HomeRecentTransactions";
 import { HeroBox } from "@/components/HeroBox";
@@ -52,12 +51,6 @@ const Home = async () => {
     <section className="flex w-full flex-row">
       <div className="flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 pt-7 pb-4 lg:pt-12 overflow-y-auto h-screen">
         <header className="flex flex-col justify-between gap-8">
-          <HeaderBox
-            type="greeting"
-            title="Welcome"
-            user={user?.firstName || "Guest"}
-            subtext="Welcome back! Your financial journey starts here"
-          />
           <HeroBox
             accounts={accounts}
             totalAccounts={totalAccounts}
