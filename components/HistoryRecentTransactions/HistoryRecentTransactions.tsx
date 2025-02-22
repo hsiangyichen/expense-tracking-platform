@@ -5,9 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AccountInfo } from "@/components/AccountInfo";
 import { AccountTabItem } from "@/components/AccountTabItem";
 import { TransactionsTable } from "@/components/TransactionsTable";
-import { Pagination } from "@/components/Pagination";
 import { PlaidAccountItem, PlaidTransaction } from "@/types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface HistoryRecentTransactionsProps {
   accounts: PlaidAccountItem[];
@@ -21,24 +20,12 @@ const HistoryRecentTransactions = ({
   accounts,
   currentAccount,
   initialTransactions,
-  totalPages,
-  currentPage,
 }: HistoryRecentTransactionsProps) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   /* ---------------------------- Handle tab change --------------------------- */
   const handleTabChange = (accountId: string) => {
     router.push(`/transaction-history/${accountId}`);
-  };
-
-  /* ---------------------------- Handle pagination --------------------------- */
-  const handlePageChange = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(
-      `/transaction-history/${currentAccount.accountId}?${params.toString()}`
-    );
   };
 
   return (
@@ -73,10 +60,13 @@ const HistoryRecentTransactions = ({
           />
 
           <TransactionsTable transactions={initialTransactions} />
+<<<<<<< Updated upstream
 
           {totalPages > 1 && (
             <div className="my-4 w-full">{/* <Pagination /> */}</div>
           )}
+=======
+>>>>>>> Stashed changes
         </TabsContent>
       </Tabs>
     </section>
