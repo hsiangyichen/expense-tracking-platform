@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AccountInfo } from "@/components/AccountInfo";
 import { AccountTabItem } from "@/components/AccountTabItem";
 import { TransactionsTable } from "@/components/TransactionsTable";
 import type { PlaidAccountItem, PlaidTransaction } from "@/types";
@@ -99,10 +98,6 @@ const HomeRecentTransactions = ({
             >
               <>
                 <TransactionsTable transactions={accountTransactions} />
-
-                {accountTransactions.length > 10 && (
-                  <div className="my-4 w-full">{/* <Pagination /> */}</div>
-                )}
               </>
             </TabsContent>
           );
@@ -119,9 +114,6 @@ const HomeRecentTransactions = ({
             selectedAccountId === account.accountId && (
               <div key={account.id} className="space-y-4">
                 <TransactionsTable transactions={accountTransactions} />
-                {accountTransactions.length > 10 && (
-                  <div className="my-4 w-full">{/* <Pagination /> */}</div>
-                )}
               </div>
             )
           );
