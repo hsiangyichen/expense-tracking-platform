@@ -46,8 +46,7 @@ Many people struggle to maintain consistent awareness of their spending habits a
 #### Backend
 
 - Next.js API routes
-- mongoose
-- mongoDB
+- appwrite
 - Node.js
 
 #### External Services

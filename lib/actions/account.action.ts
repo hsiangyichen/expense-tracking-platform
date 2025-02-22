@@ -6,9 +6,7 @@ import { ID, Query } from "node-appwrite";
 import { cache } from "react";
 import { PlaidAccountItem, PlaidAccountsResponse, AccountStats } from "@/types";
 
-/**
- * Main function: Fetches accounts from Plaid and saves them to Appwrite
- */
+/* -- Main function: Fetches accounts from Plaid and saves them to Appwrite - */
 export async function fetchAndStoreAccounts(
   userId: string,
   itemId: string
@@ -64,9 +62,7 @@ export async function fetchAndStoreAccounts(
   };
 }
 
-/**
- * Gets Plaid access token from database
- */
+/* ------------------ Gets Plaid access token from database ----------------- */
 async function getAccessTokenForItem(
   userId: string,
   itemId: string
@@ -90,9 +86,7 @@ async function getAccessTokenForItem(
   return connections.documents[0].accessToken;
 }
 
-/**
- * Gets institution details from database
- */
+/* ----------------- Gets institution details from database ----------------- */
 async function getItemInstitution(userId: string, itemId: string) {
   const { databases } = await createAdminClient();
 
@@ -118,9 +112,7 @@ async function getItemInstitution(userId: string, itemId: string) {
   };
 }
 
-/**
- * Creates or updates account in database
- */
+/* ----------------- Creates or updates account in database ----------------- */
 async function saveOrUpdateAccount(
   accountData: Omit<PlaidAccountItem, "id" | "createdAt" | "updatedAt">
 ): Promise<PlaidAccountItem> {
@@ -179,9 +171,7 @@ async function saveOrUpdateAccount(
   }
 }
 
-/**
- * Gets user's account stats with caching
- */
+/* ----------------- Gets user's account stats with caching ----------------- */
 export const getAccountStats = cache(
   async (userId: string): Promise<AccountStats> => {
     if (!userId) {

@@ -12,9 +12,8 @@ import {
 
 import { Transaction } from "plaid";
 
-/**
- * Main function: Fetches transactions from Plaid using transactionsSync and saves them to Appwrite
- */
+/* - Fetches transactions using Plaid transactionsSync and saves them to db - */
+
 export async function fetchAndStoreTransactions(
   userId: string,
   itemId: string
@@ -95,9 +94,7 @@ export async function fetchAndStoreTransactions(
   };
 }
 
-/**
- * Maps Plaid transaction to our application model
- */
+/* ------------- Maps Plaid transaction to our application model ------------ */
 function mapPlaidTransaction(
   transaction: Transaction,
   userId: string,
@@ -121,9 +118,7 @@ function mapPlaidTransaction(
   };
 }
 
-/**
- * Gets Plaid access token from database
- */
+/* ------------------ Gets Plaid access token from database ----------------- */
 async function getAccessTokenForItem(
   userId: string,
   itemId: string
@@ -147,9 +142,7 @@ async function getAccessTokenForItem(
   return connections.documents[0].accessToken;
 }
 
-/**
- * Gets transaction cursor from database
- */
+/* ------------------ Gets transaction cursor from database ----------------- */
 async function getTransactionCursor(
   userId: string,
   itemId: string
@@ -178,9 +171,7 @@ async function getTransactionCursor(
   }
 }
 
-/**
- * Saves transaction cursor to database
- */
+/* ------------------ Saves transaction cursor to database ------------------ */
 async function saveTransactionCursor(
   userId: string,
   itemId: string,
@@ -231,9 +222,7 @@ async function saveTransactionCursor(
   }
 }
 
-/**
- * Creates or updates transaction in database
- */
+/* --------------- Creates or updates transaction in database --------------- */
 async function saveOrUpdateTransaction(
   transactionData: Omit<PlaidTransaction, "id" | "createdAt" | "updatedAt">
 ): Promise<PlaidTransaction> {
@@ -288,9 +277,7 @@ async function saveOrUpdateTransaction(
   }
 }
 
-/**
- * Marks a transaction as removed in the database
- */
+/* ------------- Marks a transaction as removed in the database ------------- */
 async function markTransactionAsRemoved(
   userId: string,
   transactionId: string
@@ -326,9 +313,7 @@ async function markTransactionAsRemoved(
   }
 }
 
-/**
- * Gets user's transaction stats with caching
- */
+/* --------------- Gets user's transaction stats with caching --------------- */
 export async function getFilteredTransactions(
   userId: string,
   options: {
@@ -438,58 +423,6 @@ export async function getFilteredTransactions(
     currentPage: page,
     totalPages,
   };
-}
-
-/**
- * Gets all transactions for a specific account
- */
-export async function getTransactionsByAccountId(
-  userId: string,
-  accountId: string
-): Promise<PlaidTransaction[]> {
-  if (!userId) {
-    throw new Error("userId is required");
-  }
-
-  if (!accountId) {
-    throw new Error("accountId is required");
-  }
-
-  const { databases } = await createAdminClient();
-
-  try {
-    const transactionsResponse = await databases.listDocuments(
-      process.env.APPWRITE_DATABASE_ID!,
-      process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
-      [
-        Query.equal("userId", userId),
-        Query.equal("accountId", accountId),
-        Query.orderDesc("date"),
-      ]
-    );
-
-    // Convert to proper type
-    return transactionsResponse.documents.map((doc) => ({
-      id: doc.$id,
-      userId: doc.userId,
-      accountId: doc.accountId,
-      itemId: doc.itemId,
-      transactionId: doc.transactionId,
-      name: doc.name,
-      amount: doc.amount || 0,
-      date: doc.date,
-      category: Array.isArray(doc.category) ? doc.category : [],
-      pending: doc.pending || false,
-      merchantName: doc.merchantName,
-      paymentChannel: doc.paymentChannel || "",
-      image: doc.image,
-      createdAt: doc.createdAt,
-      updatedAt: doc.updatedAt,
-    })) as PlaidTransaction[];
-  } catch (error) {
-    console.error("Error fetching transactions by accountId:", error);
-    throw error;
-  }
 }
 
 export const getTransactionStats = cache(
