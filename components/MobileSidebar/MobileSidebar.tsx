@@ -21,7 +21,7 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
   const pathname = usePathname();
 
   return (
-    <section className="w-full max-w-[264px]">
+    <section className="w-full">
       <Sheet>
         <SheetTrigger>
           <Menu />
@@ -36,10 +36,10 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
                   width={200}
                   height={30}
                   alt="logo"
-                  className="w-28 mx-6 mt-6"
+                  className="w-28 mx-6 mt-2"
                 />
               </Link>
-              <nav className="flex flex-col pt-6 text-white ">
+              <nav className="flex flex-col text-white ">
                 {sidebarLinks.map((link) => {
                   const Icon = link.icon;
                   const isActive = pathname === link.route;

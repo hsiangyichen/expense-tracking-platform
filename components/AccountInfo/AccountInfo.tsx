@@ -22,34 +22,28 @@ const AccountInfo = ({ account }: AccountInfoProps) => {
   return (
     <div
       onClick={handleBankChange}
-      className={`gap-[18px] flex p-4 transition-all border rounded-lg
-        bg-gradient-to-r from-gradient-start to-gradient-end bg-opacity-10
-        hover:bg-opacity-20 cursor-pointer`}
+      className="gap-5 flex p-4 transition-all border rounded-lg cursor-pointer"
     >
-      <figure className={`flex-center h-fit rounded-full bg-custom-100`}>
+      <figure className="flex-center h-fit rounded-full">
         <Image
           src="/icons/connect-bank.svg"
           width={20}
           height={20}
           alt={account.subtype}
-          className="m-2 min-w-5"
+          className="m-2 min-w-5 text-stone-900"
         />
       </figure>
       <div className="flex w-full flex-1 flex-col justify-center gap-1">
         <div className="flex flex-1 items-center justify-between gap-2 overflow-hidden">
-          <h2
-            className={`text-16 line-clamp-1 flex-1 font-bold text-custom-800`}
-          >
-            {account.name}
+          <h2 className="text-16 line-clamp-1 flex-1 font-bold ">
+            {account.officialName}
           </h2>
-          <p
-            className={`text-12 rounded-full bg-custom-100 px-3 py-1 font-medium text-custom-600`}
-          >
+          <p className="text-12 rounded-full px-3 py-1 font-medium bg-[#edebf5]">
             {account.subtype}
           </p>
         </div>
 
-        <p className={`text-16 font-medium text-custom-600`}>
+        <p className="text-16 font-medium ">
           {formatAmount(account.balanceCurrent)}
         </p>
       </div>

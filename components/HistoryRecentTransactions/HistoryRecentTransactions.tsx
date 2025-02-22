@@ -51,22 +51,13 @@ const HistoryRecentTransactions = ({
             </TabsTrigger>
           ))}
         </TabsList>
-
         <TabsContent value={currentAccount.accountId} className="space-y-4">
           <AccountInfo
             account={currentAccount}
             accountId={currentAccount.accountId}
             type="full"
           />
-
           <TransactionsTable transactions={initialTransactions} />
-<<<<<<< Updated upstream
-
-          {totalPages > 1 && (
-            <div className="my-4 w-full">{/* <Pagination /> */}</div>
-          )}
-=======
->>>>>>> Stashed changes
         </TabsContent>
       </Tabs>
     </section>
