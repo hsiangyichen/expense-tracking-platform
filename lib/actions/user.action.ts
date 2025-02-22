@@ -5,9 +5,8 @@ import { createAdminClient } from "../appwrite";
 import { UserDetails } from "@/types";
 import { Query, ID } from "node-appwrite";
 
-/**
- * Syncs the current user's data from Clerk to Appwrite
- */
+/* ---------- Syncs the current user's data from Clerk to Appwrite ---------- */
+
 export async function syncUserWithAppwrite() {
   try {
     const { userId } = await auth();
@@ -32,9 +31,7 @@ export async function syncUserWithAppwrite() {
   }
 }
 
-/**
- * Creates or updates user details in the database
- */
+/* ------------- Creates or updates user details in the database ------------ */
 async function upsertUserDetails(userDetails: UserDetails) {
   try {
     const { databases } = await createAdminClient();

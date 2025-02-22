@@ -8,9 +8,7 @@ import { PlaidExchangeResponse } from "@/types";
 import { fetchAndStoreAccounts } from "./account.action";
 import { fetchAndStoreTransactions } from "./transaction.action";
 
-/**
- * Exchanges a public token for an access token and stores the connection
- */
+/* - Exchanges a public token for an access token and stores the connection - */
 export async function exchangePublicToken(
   public_token: string,
   userId: string
@@ -68,9 +66,7 @@ export async function exchangePublicToken(
   };
 }
 
-/**
- * Gets institution information from Plaid
- */
+/* ----------------- Gets institution information from Plaid ---------------- */
 async function getInstitutionInfo(accessToken: string) {
   const itemResponse = await plaidClient.itemGet({
     access_token: accessToken,
@@ -97,9 +93,7 @@ async function getInstitutionInfo(accessToken: string) {
   };
 }
 
-/**
- * Saves or updates a Plaid connection in the database
- */
+/* ----------- Saves or updates a Plaid connection in the database ---------- */
 async function saveOrUpdatePlaidConnection(
   userId: string,
   itemId: string,
