@@ -21,18 +21,15 @@ const Sidebar = ({ user }: SidebarProps) => {
           className="flex cursor-pointer items-center gap-2 relative -top-1"
         >
           <Image
-            src="./icons/logo.svg"
+            src="/icons/logo.svg"
             width={200}
             height={30}
             alt="logo"
             className="w-32"
           />
         </Link>
-
         {sidebarLinks.map((link) => {
-          const Icon = link.icon;
-          const isActive =
-            pathname === link.route || pathname.startsWith(`${link.route}/`);
+          const isActive = pathname === link.route;
 
           return (
             <Link
@@ -41,23 +38,24 @@ const Sidebar = ({ user }: SidebarProps) => {
               className={cn(
                 "flex gap-3 items-center min-w-max py-1 md:py-3 2xl:py-4 rounded-lg justify-center xl:justify-start border-b-[1.5px] border-transparent transition-all duration-200",
                 {
-                  "border-zinc-500": isActive,
-                  "hover:border-zinc-200 hover:shadow-sm": !isActive,
+                  "border-stone-400": isActive,
+                  "hover:border-stone-200 hover:shadow-sm": !isActive,
                 }
               )}
             >
               <div className="relative size-6">
-                <Icon
+                <link.icon
+                  strokeWidth={1.75}
                   className={cn(
-                    "size-6",
-                    isActive ? "text-zinc-500" : "text-zinc-800"
+                    "size-5",
+                    isActive ? "text-stone-500" : "text-stone-800"
                   )}
                 />
               </div>
               <p
                 className={cn(
-                  "text-16 font-semibold text-zinc-800 max-xl:hidden",
-                  { "text-zinc-500": isActive }
+                  "text-16 font-medium text-stone-800 max-xl:hidden",
+                  { "text-stone-500": isActive }
                 )}
               >
                 {link.label}
@@ -65,7 +63,7 @@ const Sidebar = ({ user }: SidebarProps) => {
             </Link>
           );
         })}
-        <PlaidLink user={user} />
+        <PlaidLink user={user} type="sidebar" />
       </nav>
       <Footer user={user} />
     </section>

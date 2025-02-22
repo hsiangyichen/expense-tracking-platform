@@ -1,36 +1,51 @@
-// AccountTabItem.tsx
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
 import { formUrlQuery } from "@/lib/utils";
+import { PlaidAccountItem } from "@/types";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import { AccountTabItemProps } from "./AccountTabItem.types";
 
-const AccountTabItem = ({ account, isActive = false }: AccountTabItemProps) => {
-  const searchParams = useSearchParams();
+interface AccountTabItemProps {
+  account: PlaidAccountItem;
+  isActive: boolean;
+  urlStrategy: "query" | "path";
+  baseUrl?: string;
+}
+
+const AccountTabItem = ({
+  account,
+  isActive = false,
+  urlStrategy = "query",
+  baseUrl = "/transaction-history",
+}: AccountTabItemProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleBankChange = () => {
-    const newUrl = formUrlQuery({
-      params: searchParams.toString(),
-      key: "id",
-      value: account?.accountId,
-    });
-    router.push(newUrl, { scroll: false });
+    if (urlStrategy === "query") {
+      const newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "id",
+        value: account.accountId,
+      });
+      router.replace(newUrl, { scroll: false });
+    } else {
+      router.replace(`${baseUrl}/${account.accountId}`, { scroll: false });
+    }
   };
 
   return (
     <div
       onClick={handleBankChange}
-      className={`px-3 py-2 transition-colors duration-200 cursor-pointer
+      className={`px-3 py-2 transition-colors duration-200 cursor-pointer hover:border-stone-700
         ${
           isActive
-            ? "border-b-2 border-gradient-middle"
-            : "border-b-2 border-white"
+            ? "border-b-[1.5px] border-stone-700"
+            : "border-b-[1.5px] text-stone-100"
         }`}
     >
-      <p className={isActive ? "text-custom-600" : "text-gray-700"}>
-        {account.name}
+      <p className={isActive ? "text-stone-700" : "text-stone-400"}>
+        {account.institutionName} | {account.name}
       </p>
     </div>
   );

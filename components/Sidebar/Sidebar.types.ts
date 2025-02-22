@@ -1,5 +1,6 @@
-import { UserDetails } from "@/types";
+import { PlaidAccountItem, UserDetails } from "@/types";
 
 export interface SidebarProps {
   user: UserDetails;
+  accounts: PlaidAccountItem[];
 }

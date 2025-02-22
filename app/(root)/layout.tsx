@@ -2,7 +2,10 @@ import { MobileSidebar } from "@/components/MobileSidebar";
 import { Sidebar } from "@/components/Sidebar";
 import Image from "next/image";
 import { auth, currentUser } from "@clerk/nextjs/server";
+import React from "react";
 import { redirect } from "next/navigation";
+import { getAccountStats } from "@/lib/actions/account.action";
+import { PlaidAccountItem } from "@/types";
 
 export default async function RootLayout({
   children,
@@ -23,12 +26,21 @@ export default async function RootLayout({
     email: loggedIn?.emailAddresses?.[0]?.emailAddress ?? "",
   };
 
+  let accounts: PlaidAccountItem[] = [];
+
+  try {
+    const accountStats = await getAccountStats(user.id);
+    accounts = accountStats.accounts;
+  } catch (error) {
+    console.error("Error fetching account stats:", error);
+  }
+
   return (
     <main className="flex h-screen w-full">
-      <Sidebar user={user} />
+      <Sidebar user={user} accounts={accounts} />
 
       <div className="flex size-full flex-col">
-        <div className="flex h-16 items-center justify-between p-5 shadow-creditCard sm:p-8 md:hidden">
+        <div className="flex h-20 items-center justify-between p-5 sm:p-8 md:hidden">
           <Image
             src="/icons/logo.svg"
             alt="logo"
