@@ -75,7 +75,7 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
                     </SheetClose>
                   );
                 })}
-                <PlaidLink user={user} />
+                <PlaidLink user={user} type="sidebar" />
               </nav>
             </div>
             <div className="px-6">

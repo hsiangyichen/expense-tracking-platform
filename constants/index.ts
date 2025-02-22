@@ -15,6 +15,7 @@ export const sidebarLinks = [
     icon: Receipt,
     route: "/transaction-history",
     label: "Transaction History",
+    requiresAccountId: true,
   },
   {
     icon: PieChart,
