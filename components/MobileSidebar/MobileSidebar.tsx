@@ -29,48 +29,47 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
         <SheetContent side="left" className="border-none bg-white">
           <SheetTitle className="hidden"></SheetTitle>
           <div className="flex h-full flex-col justify-between">
-            <div>
-              <Link href="/" className="cursor-pointer">
+            <div className="">
+              <Link href="/" className="cursor-pointer ">
                 <Image
                   src="/icons/logo.svg"
                   width={200}
                   height={30}
                   alt="logo"
-                  className="w-28"
+                  className="w-28 mx-6 mt-6"
                 />
               </Link>
-              <nav className="flex flex-col gap-2 pt-6 text-white">
-                {sidebarLinks.map((item) => {
-                  const Icon = item.icon;
-                  const isActive =
-                    pathname === item.route ||
-                    pathname.startsWith(`${item.route}/`);
+              <nav className="flex flex-col pt-6 text-white ">
+                {sidebarLinks.map((link) => {
+                  const Icon = link.icon;
+                  const isActive = pathname === link.route;
 
                   return (
-                    <SheetClose asChild key={item.route}>
+                    <SheetClose asChild key={link.route}>
                       <Link
-                        href={item.route}
-                        key={item.label}
+                        href={link.route}
+                        key={link.label}
                         className={cn(
-                          "flex gap-3 items-center py-3 rounded-lg w-full border-b-[1.5px] border-transparent transition-all duration-200",
+                          "flex px-6 gap-3 items-center py-4 rounded-lg w-full border-b-[1.5px] font-light border-transparent transition-all duration-200",
                           {
-                            "border-zinc-500": isActive,
-                            "hover:border-zinc-200 hover:shadow-sm": !isActive,
+                            "border-stone-400": isActive,
+                            "hover:border-stone-200 hover:shadow-sm": !isActive,
                           }
                         )}
                       >
                         <Icon
+                          strokeWidth={1.75}
                           className={cn(
-                            "size-6",
-                            isActive ? "text-zinc-500" : "text-zinc-800"
+                            "size-5",
+                            isActive ? "text-stone-500" : "text-stone-800"
                           )}
                         />
                         <p
-                          className={cn("text-16 font-semibold text-zinc-800", {
-                            "text-zinc-500": isActive,
+                          className={cn("text-16 font-medium text-stone-800", {
+                            "text-stone-500": isActive,
                           })}
                         >
-                          {item.label}
+                          {link.label}
                         </p>
                       </Link>
                     </SheetClose>
@@ -79,7 +78,9 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
                 <PlaidLink user={user} />
               </nav>
             </div>
-            <Footer user={user} />
+            <div className="px-6">
+              <Footer user={user} />
+            </div>
           </div>
         </SheetContent>
       </Sheet>

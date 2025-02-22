@@ -24,7 +24,7 @@ const Footer = ({ user }: FooterProps) => {
         className="relative size-5 flex md:hidden xl:min-w-max xl:flex xl:justify-center xl:items-center"
         onClick={() => signOut()}
       >
-        <Image src="icons/logout.svg" fill alt="log out" />
+        <Image src="/icons/logout.svg" fill alt="log out" />
       </div>
     </footer>
   );

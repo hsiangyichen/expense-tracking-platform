@@ -1,6 +1,6 @@
 import { HeaderBox } from "@/components/HeaderBox";
 import { RightSidebar } from "@/components/RightSidebar";
-import { RecentTransactions } from "@/components/RecentTransactions";
+import { HomeRecentTransactions } from "@/components/HomeRecentTransactions";
 import { HeroBox } from "@/components/HeroBox";
 import React from "react";
 import { redirect } from "next/navigation";
@@ -49,8 +49,8 @@ const Home = async () => {
   }
 
   return (
-    <section className="no-scrollbar flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll">
-      <div className="no-scrollbar flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 py-7 lg:py-12 xl:max-h-screen xl:overflow-y-scroll">
+    <section className="flex w-full flex-row">
+      <div className="flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 py-7 lg:py-12">
         <header className="flex flex-col justify-between gap-8">
           <HeaderBox
             type="greeting"
@@ -64,7 +64,10 @@ const Home = async () => {
             totalCurrentBalance={totalCurrentBalance}
           />
         </header>
-        <RecentTransactions accounts={accounts} transactions={transactions} />
+        <HomeRecentTransactions
+          accounts={accounts}
+          transactions={transactions}
+        />
       </div>
       <RightSidebar
         user={user}

@@ -380,10 +380,7 @@ export async function getFilteredTransactions(
   } = options;
 
   const { databases } = await createAdminClient();
-  const queries = [
-    Query.equal("userId", userId),
-    Query.notEqual("status", "removed"),
-  ];
+  const queries = [Query.equal("userId", userId)];
 
   // Add filters
   if (accountId) {
@@ -488,7 +485,6 @@ export async function getTransactionsByAccountId(
       [
         Query.equal("userId", userId),
         Query.equal("accountId", accountId),
-        Query.notEqual("status", "removed"),
         Query.orderDesc("date"),
       ]
     );

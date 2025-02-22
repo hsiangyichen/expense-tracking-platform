@@ -9,11 +9,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-body {
-  /* font-family: Arial, Helvetica, sans-serif; */
-}
-
 a {
   text-decoration: none;
   color: inherit;
@@ -79,5 +74,17 @@ ul {
 
   .text-36 {
     @apply text-[36px] leading-[44px];
+  }
+}
+
+@layer base {
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

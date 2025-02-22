@@ -3,15 +3,16 @@ import Link from "next/link";
 import React from "react";
 import { BankCard } from "@/components/BankCard";
 import { RightSidebarProps } from "./RightSidebar.types";
+import { PlaidLink } from "@/components/PlaidLink";
 
 const RightSidebar = ({ user, accounts, transactions }: RightSidebarProps) => {
   return (
-    <aside className="no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 xl:flex w-[365px] xl:overflow-y-scroll !important">
+    <aside className="no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 xl:flex w-[365px]">
       <section className="flex flex-col pb-8">
         <div className="h-20 w-full bg-cover bg-no-repeat" />
         <div className="relative flex px-6 max-xl:justify-center">
           <div className="flex-center absolute -top-8 size-24 rounded-full bg-gray-100 border-8 border-white p-2 shadow-profile">
-            <span className="text-5xl font-bold text-zinc-400">
+            <span className="text-5xl font-bold text-stone-400">
               {user.firstName?.[0] ?? ""}
             </span>
           </div>
@@ -27,19 +28,8 @@ const RightSidebar = ({ user, accounts, transactions }: RightSidebarProps) => {
 
       <section className="flex flex-col justify-between gap-8 px-6 py-8">
         <div className="flex w-full justify-between">
-          <h2 className="header-2">My Banks</h2>
-          <Link href="/" className="flex gap-2">
-            <Image
-              src="/icons/plus.svg"
-              alt="plus"
-              width={20}
-              height={20}
-              className="w-auto h-auto"
-            />
-            <h2 className="text-14 font-semibold text-gray-600 min-w-max">
-              Add Bank
-            </h2>
-          </Link>
+          <h2 className="header-2">My Cards</h2>
+          <PlaidLink user={user} type="right-sidebar" />
         </div>
 
         {accounts?.length > 0 && (
