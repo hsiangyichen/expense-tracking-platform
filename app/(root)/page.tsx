@@ -29,13 +29,13 @@ const Home = async () => {
   let transactions: PlaidTransaction[] = [];
 
   try {
-    // Fetch account statistics
+    /* ------------------------ Fetch account statistics ------------------------ */
     const accountStats = await getAccountStats(user.id);
     accounts = accountStats.accounts;
     totalAccounts = accountStats.totalAccounts;
     totalCurrentBalance = accountStats.totalCurrentBalance;
 
-    // Fetch transaction statistics
+    /* ---------------------- Fetch transaction statistics ---------------------- */
     if (accounts.length > 0) {
       try {
         const transactionStats = await getTransactionStats(user.id);
@@ -50,13 +50,13 @@ const Home = async () => {
 
   return (
     <section className="flex w-full flex-row">
-      <div className="flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 py-7 lg:py-12">
+      <div className="flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 pt-7 pb-4 lg:pt-12 overflow-y-auto h-screen">
         <header className="flex flex-col justify-between gap-8">
           <HeaderBox
             type="greeting"
             title="Welcome"
             user={user?.firstName || "Guest"}
-            subtext="Access and manage your account and transactions efficiently."
+            subtext="Welcome back! Your financial journey starts here"
           />
           <HeroBox
             accounts={accounts}

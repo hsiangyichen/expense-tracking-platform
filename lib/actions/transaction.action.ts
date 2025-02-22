@@ -30,12 +30,10 @@ export async function fetchAndStoreTransactions(
   // Get access token
   const accessToken = await getAccessTokenForItem(userId, itemId);
 
-  // Initial sync - use empty cursor for first sync
   let cursor = await getTransactionCursor(userId, itemId);
   let hasMore = true;
   const allTransactions: PlaidTransaction[] = [];
 
-  // Sync transactions until we have all of them
   while (hasMore) {
     const syncResponse = await plaidClient.transactionsSync({
       access_token: accessToken,
@@ -45,7 +43,6 @@ export async function fetchAndStoreTransactions(
     const { added, modified, removed, next_cursor, has_more } =
       syncResponse.data;
 
-    // Process added transactions
     if (added.length > 0) {
       const addedTransactions = await Promise.all(
         added.map(async (transaction) => {
@@ -60,7 +57,6 @@ export async function fetchAndStoreTransactions(
       allTransactions.push(...addedTransactions);
     }
 
-    // Process modified transactions
     if (modified.length > 0) {
       await Promise.all(
         modified.map(async (transaction) => {
@@ -86,7 +82,6 @@ export async function fetchAndStoreTransactions(
       );
     }
 
-    // Update cursor and check if we need to continue
     cursor = next_cursor;
     hasMore = has_more;
 
@@ -116,14 +111,12 @@ function mapPlaidTransaction(
     name: transaction.name || "",
     amount: transaction.amount || 0,
     date: transaction.date || "",
-    // Use personal_finance_category if available, otherwise fall back to category
     category: transaction.personal_finance_category
       ? [transaction.personal_finance_category.primary]
       : transaction.category || [],
     pending: transaction.pending || false,
     merchantName: transaction.merchant_name || null,
     paymentChannel: transaction.payment_channel || "",
-    // Use logo_url for image
     image: transaction.logo_url || null,
   };
 }
@@ -209,7 +202,6 @@ async function saveTransactionCursor(
     );
 
     if (existingCursors.documents.length > 0) {
-      // Update existing cursor
       await databases.updateDocument(
         process.env.APPWRITE_DATABASE_ID!,
         process.env.APPWRITE_CURSOR_COLLECTION_ID!,
@@ -220,7 +212,6 @@ async function saveTransactionCursor(
         }
       );
     } else {
-      // Create new cursor
       await databases.createDocument(
         process.env.APPWRITE_DATABASE_ID!,
         process.env.APPWRITE_CURSOR_COLLECTION_ID!,
@@ -237,7 +228,6 @@ async function saveTransactionCursor(
     }
   } catch (error) {
     console.error("Error saving transaction cursor:", error);
-    // Continue without throwing to not interrupt the main flow
   }
 }
 
@@ -250,7 +240,6 @@ async function saveOrUpdateTransaction(
   const { databases } = await createAdminClient();
   const now = new Date().toISOString();
 
-  // Look for existing transaction by transactionId (Plaid's unique identifier)
   const existingTransactions = await databases.listDocuments(
     process.env.APPWRITE_DATABASE_ID!,
     process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
@@ -261,7 +250,6 @@ async function saveOrUpdateTransaction(
   );
 
   if (existingTransactions.documents.length > 0) {
-    // Update existing transaction
     const existingTransaction = existingTransactions.documents[0];
     const updatedTransaction = await databases.updateDocument(
       process.env.APPWRITE_DATABASE_ID!,
@@ -280,7 +268,6 @@ async function saveOrUpdateTransaction(
       updatedAt: now,
     };
   } else {
-    // Create new transaction
     const newTransaction = await databases.createDocument(
       process.env.APPWRITE_DATABASE_ID!,
       process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
@@ -336,15 +323,11 @@ async function markTransactionAsRemoved(
       `Error marking transaction ${transactionId} as removed:`,
       error
     );
-    // Continue without throwing to not interrupt the main flow
   }
 }
 
 /**
  * Gets user's transaction stats with caching
- */
-/**
- * Gets filtered transactions with pagination options
  */
 export async function getFilteredTransactions(
   userId: string,
@@ -382,7 +365,6 @@ export async function getFilteredTransactions(
   const { databases } = await createAdminClient();
   const queries = [Query.equal("userId", userId)];
 
-  // Add filters
   if (accountId) {
     queries.push(Query.equal("accountId", accountId));
   }
@@ -403,7 +385,6 @@ export async function getFilteredTransactions(
     queries.push(Query.lessThanEqual("amount", maxAmount));
   }
 
-  // First get total count
   const countResponse = await databases.listDocuments(
     process.env.APPWRITE_DATABASE_ID!,
     process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
@@ -413,7 +394,6 @@ export async function getFilteredTransactions(
   const totalCount = countResponse.total;
   const totalPages = Math.ceil(totalCount / limit);
 
-  // Then get paginated results
   const paginatedQueries = [
     ...queries,
     Query.orderDesc("date"),
@@ -446,7 +426,6 @@ export async function getFilteredTransactions(
     updatedAt: doc.updatedAt,
   })) as PlaidTransaction[];
 
-  // Filter by categories if needed (this can't be done at DB level in Appwrite easily)
   if (categories && categories.length > 0) {
     transactions = transactions.filter((transaction) =>
       transaction.category.some((category) => categories.includes(category))
@@ -521,15 +500,10 @@ export const getTransactionStats = cache(
 
     const { databases } = await createAdminClient();
 
-    // Get all active transactions
     const transactionsResponse = await databases.listDocuments(
       process.env.APPWRITE_DATABASE_ID!,
       process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
-      [
-        Query.equal("userId", userId),
-        Query.orderDesc("date"),
-        Query.limit(100), // Limit to recent transactions
-      ]
+      [Query.equal("userId", userId), Query.orderDesc("date"), Query.limit(100)]
     );
 
     // Convert to proper type
@@ -551,11 +525,8 @@ export const getTransactionStats = cache(
       updatedAt: doc.updatedAt,
     })) as PlaidTransaction[];
 
-    // Calculate stats
     const totalTransactions = transactions.length;
 
-    // Calculate spent (positive amounts) and income (negative amounts)
-    // Plaid uses positive values for outflows (spending) and negative for inflows (income)
     const totalSpent = transactions
       .filter((t) => t.amount > 0)
       .reduce((sum, t) => sum + t.amount, 0);

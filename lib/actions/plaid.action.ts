@@ -88,7 +88,6 @@ async function getInstitutionInfo(accessToken: string) {
       institutionName = institutionResponse.data.institution.name;
     } catch (instError) {
       console.error("Error fetching institution details:", instError);
-      // Continue with default institution name
     }
   }
 

@@ -27,12 +27,12 @@ const HistoryRecentTransactions = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Handle tab change
+  /* ---------------------------- Handle tab change --------------------------- */
   const handleTabChange = (accountId: string) => {
     router.push(`/transaction-history/${accountId}`);
   };
 
-  // Handle pagination
+  /* ---------------------------- Handle pagination --------------------------- */
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
@@ -84,5 +84,3 @@ const HistoryRecentTransactions = ({
 };
 
 export default HistoryRecentTransactions;
-
-// ;BSEJFg; wcrihwr; hs[ cohSO: fJS'ITJ]

@@ -51,8 +51,6 @@ const HomeRecentTransactions = ({
           View all
         </Link>
       </header>
-
-      {/* Mobile Select */}
       <div className="lg:hidden">
         <Select value={selectedAccountId} onValueChange={handleAccountChange}>
           <SelectTrigger className="w-full">
@@ -67,8 +65,6 @@ const HomeRecentTransactions = ({
           </SelectContent>
         </Select>
       </div>
-
-      {/* Desktop Tabs */}
       <Tabs
         value={selectedAccountId}
         onValueChange={handleAccountChange}
@@ -113,7 +109,6 @@ const HomeRecentTransactions = ({
         })}
       </Tabs>
 
-      {/* Shared content for both mobile and desktop */}
       <div className="mt-4 xl:hidden">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
