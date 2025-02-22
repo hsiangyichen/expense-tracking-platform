@@ -5,26 +5,8 @@ import { PlaidLink } from "@/components/PlaidLink";
 
 const RightSidebar = ({ user, accounts, transactions }: RightSidebarProps) => {
   return (
-    <aside className="no-scrollbar hidden h-screen max-h-screen flex-col border-l border-gray-200 xl:flex w-[365px]">
-      <section className="flex flex-col pb-8">
-        <div className="h-20 w-full bg-cover bg-no-repeat" />
-        <div className="relative flex px-6 max-xl:justify-center">
-          <div className="flex-center absolute -top-8 size-24 rounded-full bg-gray-100 border-8 border-white p-2 shadow-profile">
-            <span className="text-5xl font-bold text-stone-400">
-              {user.firstName?.[0] ?? ""}
-            </span>
-          </div>
-
-          <div className="flex flex-col pt-24">
-            <h1 className="text-24 font-semibold text-gray-900">
-              {user.firstName} {user.lastName}
-            </h1>
-            <p className="text-16 font-normal text-gray-600">{user.email}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="flex flex-col justify-between gap-8 px-6 py-8">
+    <aside className="flex-col xl:flex w-[365px] my-12 mr-8 hidden h-screen max-h-screen">
+      <section className="flex flex-col justify-between gap-8 px-6 p-12 pt-6 rounded-xl border border-stone-200  shadow-sm">
         <div className="flex w-full justify-between">
           <h2 className="header-2">My Cards</h2>
           <PlaidLink user={user} type="right-sidebar" />
