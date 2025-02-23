@@ -1,16 +1,9 @@
 "use client";
 
 import { formUrlQuery } from "@/lib/utils";
-import { PlaidAccountItem } from "@/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-
-interface AccountTabItemProps {
-  account: PlaidAccountItem;
-  isActive: boolean;
-  urlStrategy: "query" | "path";
-  baseUrl?: string;
-}
+import { AccountTabItemProps } from "./AccountTabItem.types";
 
 const AccountTabItem = ({
   account,

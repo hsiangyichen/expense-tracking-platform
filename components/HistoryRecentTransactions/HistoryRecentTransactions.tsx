@@ -5,16 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AccountInfo } from "@/components/AccountInfo";
 import { AccountTabItem } from "@/components/AccountTabItem";
 import { TransactionsTable } from "@/components/TransactionsTable";
-import { PlaidAccountItem, PlaidTransaction } from "@/types";
 import { useRouter } from "next/navigation";
-
-interface HistoryRecentTransactionsProps {
-  accounts: PlaidAccountItem[];
-  currentAccount: PlaidAccountItem;
-  initialTransactions: PlaidTransaction[];
-  totalPages: number;
-  currentPage: number;
-}
+import { HistoryRecentTransactionsProps } from "./HistoryRecentTransactions.types";
 
 const HistoryRecentTransactions = ({
   accounts,

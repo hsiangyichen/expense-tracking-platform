@@ -36,10 +36,9 @@ export default async function RootLayout({
   }
 
   return (
-    <main className="flex h-screen w-full">
+    <main className="flex h-screen overflow-hidden">
       <Sidebar user={user} accounts={accounts} />
-
-      <div className="flex size-full flex-col">
+      <div className="flex flex-col overflow-auto w-full">
         <div className="flex h-20 items-center justify-between p-5 sm:p-8 md:hidden">
           <Image
             src="/icons/logo.svg"
@@ -52,7 +51,7 @@ export default async function RootLayout({
             <MobileSidebar user={user} />
           </div>
         </div>
-        {children}
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </main>
   );

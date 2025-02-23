@@ -22,7 +22,6 @@ const HeroBox = async ({
       <HeaderBox
         type="greeting"
         title="Welcome"
-        user={user?.firstName || "Guest"}
         subtext="Welcome back to Budget Pin! Starts Your financial journey now!"
       />
       <div className="flex w-full gap-4">

@@ -13,7 +13,6 @@ import {
 import { Transaction } from "plaid";
 
 /* - Fetches transactions using Plaid transactionsSync and saves them to db - */
-
 export async function fetchAndStoreTransactions(
   userId: string,
   itemId: string
@@ -425,6 +424,7 @@ export async function getFilteredTransactions(
   };
 }
 
+/* ----------------------- Get transaction statistics ----------------------- */
 export const getTransactionStats = cache(
   async (userId: string): Promise<TransactionStats> => {
     if (!userId) {

@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Formats a number as a currency string with customizable options.
+/* ------------------ Formats a number as a currency string ----------------- */
 interface FormatAmountOptions {
   currency?: string;
   locale?: string;
@@ -34,7 +34,7 @@ export function formatAmount(
   }
 }
 
-// Formats URL query parameters by updating or removing specified key-value pairs
+/* ----------------------- Formats URL query parameters --------------------- */
 interface UrlQueryParams {
   params: string;
   key: string;
@@ -71,4 +71,12 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams): string {
     console.error("Error formatting URL query:", error);
     return window.location.pathname;
   }
+}
+
+/* ----------------------------- Format the text ---------------------------- */
+export function toPascalCase(str: string): string {
+  return str
+    .split(/[-_\s]+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 }

@@ -1,7 +1,6 @@
 import { PlaidTransaction, PlaidAccountItem } from "@/types";
 
-export interface RecentTransactionsProps {
+export interface HomeRecentTransactionsProps {
   accounts: PlaidAccountItem[];
   transactions: PlaidTransaction[];
-  page: number;
 }

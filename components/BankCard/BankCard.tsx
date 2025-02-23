@@ -9,14 +9,14 @@ const BankCard = ({ account, userName }: BankCardProps) => {
     <div className="flex flex-col">
       <Link
         href="/"
-        className="relative flex h-[190px] w-full max-w-[320px] justify-between rounded-[20px] border border-white  shadow-creditCard backdrop-blur-[6px]"
+        className="relative flex h-[190px] w-full max-w-[320px] justify-between rounded-2xl border border-white  shadow-creditCard backdrop-blur-[6px]"
       >
-        <div className="relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-[20px] bg-gray-600 px-5 pb-4 pt-5">
+        <div className="relative z-10 flex size-full max-w-[228px] flex-col justify-between rounded-l-2xl bg-gray-600 px-5 pb-4 pt-5">
           <div>
             <h1 className="text-16 font-semibold text-white">
               {account.name || userName}
             </h1>
-            <p className="font-ibm-plex-serif font-black text-white">
+            <p className="font-extrabold text-white">
               {formatAmount(account.balanceCurrent)}
             </p>
           </div>
@@ -32,7 +32,7 @@ const BankCard = ({ account, userName }: BankCardProps) => {
           </article>
         </div>
 
-        <div className="flex size-full flex-1 flex-col items-end justify-between rounded-r-[20px] bg-gray-600 bg-cover bg-center bg-no-repeat py-5 pr-5">
+        <div className="flex size-full flex-1 flex-col items-end justify-between rounded-r-2xl bg-gray-600 bg-cover bg-center bg-no-repeat py-5 pr-5">
           <Image src="/icons/Paypass.svg" alt="pay" width={20} height={24} />
           <Image
             src="/icons/mastercard.svg"
