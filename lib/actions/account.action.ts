@@ -6,7 +6,7 @@ import { ID, Query } from "node-appwrite";
 import { cache } from "react";
 import { PlaidAccountItem, PlaidAccountsResponse, AccountStats } from "@/types";
 
-/* -- Main function: Fetches accounts from Plaid and saves them to Appwrite - */
+/* ------------ Fetches accounts from Plaid and saves them to db ------------ */
 export async function fetchAndStoreAccounts(
   userId: string,
   itemId: string
@@ -31,7 +31,7 @@ export async function fetchAndStoreAccounts(
     access_token: accessToken,
   });
 
-  // Save each account to database
+  // Save each account to database with deduplication
   const storedAccounts = await Promise.all(
     accountsResponse.data.accounts.map(async (account) => {
       const accountItem: Omit<
@@ -52,7 +52,7 @@ export async function fetchAndStoreAccounts(
         status: "active",
       };
 
-      return await saveOrUpdateAccount(accountItem);
+      return await saveOrUpdateAccount(userId, accountItem);
     })
   );
 
@@ -114,6 +114,7 @@ async function getItemInstitution(userId: string, itemId: string) {
 
 /* ----------------- Creates or updates account in database ----------------- */
 async function saveOrUpdateAccount(
+  userId: string,
   accountData: Omit<PlaidAccountItem, "id" | "createdAt" | "updatedAt">
 ): Promise<PlaidAccountItem> {
   const { databases } = await createAdminClient();
@@ -124,9 +125,11 @@ async function saveOrUpdateAccount(
     process.env.APPWRITE_DATABASE_ID!,
     process.env.APPWRITE_ACCOUNT_COLLECTION_ID!,
     [
-      Query.equal("userId", accountData.userId),
-      Query.equal("itemId", accountData.itemId),
-      Query.equal("accountId", accountData.accountId),
+      Query.equal("userId", userId),
+      Query.equal("institutionId", accountData.institutionId),
+      Query.equal("type", accountData.type),
+      Query.equal("mask", accountData.mask),
+      Query.equal("status", "active"),
     ]
   );
 

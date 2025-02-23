@@ -11,13 +11,8 @@ import {
 } from "@/components/ui/select";
 import { AccountTabItem } from "@/components/AccountTabItem";
 import { TransactionsTable } from "@/components/TransactionsTable";
-import type { PlaidAccountItem, PlaidTransaction } from "@/types";
 import { formUrlQuery } from "@/lib/utils";
-
-interface HomeRecentTransactionsProps {
-  accounts: PlaidAccountItem[];
-  transactions: PlaidTransaction[];
-}
+import { HomeRecentTransactionsProps } from "./HomeRecentTransactions.types";
 
 const HomeRecentTransactions = ({
   accounts,
