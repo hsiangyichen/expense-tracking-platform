@@ -1,7 +1,6 @@
 import React, { JSX } from "react";
 import {
   ShoppingCart,
-  Coffee,
   CreditCard,
   Home,
   Car,
@@ -11,11 +10,11 @@ import {
   Scissors,
   Dumbbell,
   Plane,
-  GraduationCap,
   Heart,
   Tag,
   DollarSign,
   Building,
+  Music,
 } from "lucide-react";
 import { CategoryBadgeProps } from "./CategoryBadge.types";
 
@@ -58,8 +57,8 @@ const getCategoryConfig = (category: string) => {
       icon: <DollarSign className="w-3 h-3" />,
     },
     loan_payments: {
-      bgClass: "bg-slate-100",
-      textClass: "text-slate-800",
+      bgClass: "bg-sky-100",
+      textClass: "text-sky-800",
       icon: <Building className="w-3 h-3" />,
     },
     shopping: {
@@ -72,15 +71,10 @@ const getCategoryConfig = (category: string) => {
       textClass: "text-orange-800",
       icon: <Utensils className="w-3 h-3" />,
     },
-    "food & drink": {
-      bgClass: "bg-orange-100",
-      textClass: "text-orange-800",
-      icon: <Coffee className="w-3 h-3" />,
-    },
-    coffee: {
-      bgClass: "bg-amber-100",
-      textClass: "text-amber-800",
-      icon: <Coffee className="w-3 h-3" />,
+    merchandise: {
+      bgClass: "bg-red-100",
+      textClass: "text-red-800",
+      icon: <Utensils className="w-3 h-3" />,
     },
     groceries: {
       bgClass: "bg-green-100",
@@ -103,13 +97,8 @@ const getCategoryConfig = (category: string) => {
       icon: <Home className="w-3 h-3" />,
     },
     transport: {
-      bgClass: "bg-cyan-100",
-      textClass: "text-cyan-800",
-      icon: <Car className="w-3 h-3" />,
-    },
-    transportation: {
-      bgClass: "bg-cyan-100",
-      textClass: "text-cyan-800",
+      bgClass: "bg-sky-100",
+      textClass: "text-sky-800",
       icon: <Car className="w-3 h-3" />,
     },
     "gas & fuel": {
@@ -127,10 +116,10 @@ const getCategoryConfig = (category: string) => {
       textClass: "text-pink-800",
       icon: <CreditCard className="w-3 h-3" />,
     },
-    work: {
-      bgClass: "bg-emerald-100",
-      textClass: "text-emerald-800",
-      icon: <Briefcase className="w-3 h-3" />,
+    entertainment: {
+      bgClass: "bg-green-100",
+      textClass: "text-green-800",
+      icon: <Music className="w-3 h-3" />,
     },
     salary: {
       bgClass: "bg-emerald-100",
@@ -158,14 +147,9 @@ const getCategoryConfig = (category: string) => {
       icon: <Dumbbell className="w-3 h-3" />,
     },
     travel: {
-      bgClass: "bg-sky-100",
-      textClass: "text-sky-800",
+      bgClass: "bg-violet-100",
+      textClass: "text-indigo-900",
       icon: <Plane className="w-3 h-3" />,
-    },
-    education: {
-      bgClass: "bg-yellow-100",
-      textClass: "text-yellow-800",
-      icon: <GraduationCap className="w-3 h-3" />,
     },
   };
 
