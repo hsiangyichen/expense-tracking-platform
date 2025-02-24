@@ -1,4 +1,3 @@
-import { RightSidebar } from "@/components/RightSidebar";
 import { HomeRecentTransactions } from "@/components/HomeRecentTransactions";
 import { HeroBox } from "@/components/HeroBox";
 import React from "react";
@@ -48,25 +47,15 @@ const Home = async () => {
   }
 
   return (
-    <section className="flex w-full flex-row">
-      <div className="flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 pt-7 pb-4 lg:pt-12 overflow-y-auto h-screen">
-        <header className="flex flex-col justify-between gap-8">
-          <HeroBox
-            accounts={accounts}
-            totalAccounts={totalAccounts}
-            totalCurrentBalance={totalCurrentBalance}
-          />
-        </header>
-        <HomeRecentTransactions
+    <section className="flex w-full flex-col gap-8 px-5 sm:px-8 pt-7 pb-10 lg:pt-12 flex-1 h-screen">
+      <header className="flex flex-col justify-between gap-8 ">
+        <HeroBox
           accounts={accounts}
-          transactions={transactions}
+          totalAccounts={totalAccounts}
+          totalCurrentBalance={totalCurrentBalance}
         />
-      </div>
-      <RightSidebar
-        user={user}
-        transactions={transactions}
-        accounts={accounts}
-      />
+      </header>
+      <HomeRecentTransactions accounts={accounts} transactions={transactions} />
     </section>
   );
 };

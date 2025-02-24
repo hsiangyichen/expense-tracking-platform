@@ -14,6 +14,7 @@ import { TransactionsTable } from "@/components/TransactionsTable";
 import { formUrlQuery } from "@/lib/utils";
 import { HomeRecentTransactionsProps } from "./HomeRecentTransactions.types";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ArrowRight } from "lucide-react";
 
 const HomeRecentTransactions = ({
   accounts,
@@ -34,16 +35,17 @@ const HomeRecentTransactions = ({
   };
 
   return (
-    <section className="flex w-full flex-col">
+    <section className="flex w-full flex-col flex-1 overflow-y-hidden">
       <header className="flex items-center justify-between mb-4">
         <h2 className="text-20 md:text-24 font-semibold text-gray-900">
           Recent transactions
         </h2>
         <Link
           href={`/transaction-history/${selectedAccountId}`}
-          className="text-14 rounded-lg border border-gray-300 px-4 py-2.5 font-semibold text-gray-700"
+          className="text-14 flex items-center gap-2 font-medium text-stone-500 hover:text-stone-800"
         >
-          View all
+          <span>View All</span>
+          <ArrowRight className="w-4 h-4" />
         </Link>
       </header>
       <div className="lg:hidden">
@@ -63,7 +65,7 @@ const HomeRecentTransactions = ({
       <Tabs
         value={selectedAccountId}
         onValueChange={handleAccountChange}
-        className="w-full hidden lg:block"
+        className="w-full hidden lg:flex flex-col flex-1 h-screen"
       >
         <ScrollArea className="w-full whitespace-nowrap">
           <TabsList className="mb-6 w-full inline-flex">
@@ -83,7 +85,6 @@ const HomeRecentTransactions = ({
           </TabsList>
           <ScrollBar orientation="horizontal" className="invisible" />
         </ScrollArea>
-
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
             (tx) => tx.accountId === account.accountId
@@ -93,7 +94,7 @@ const HomeRecentTransactions = ({
             <TabsContent
               key={account.id}
               value={account.accountId}
-              className="space-y-4"
+              className="flex-1 overflow-y-scroll no-scrollbar"
             >
               <>
                 <TransactionsTable transactions={accountTransactions} />
