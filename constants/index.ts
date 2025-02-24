@@ -23,7 +23,7 @@ export const sidebarLinks = [
 /* ------------------------------ Color Palette ----------------------------- */
 export const colorPalette = [
   "#FFE4E6",
-  // "#FDA4AF",
+  "#FDA4AF",
   "#F7CFCC",
   "#F2C2CE",
   "#D7C0DC",
