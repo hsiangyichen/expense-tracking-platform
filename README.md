@@ -172,6 +172,34 @@ yarn dev
   - `getCategoryStats`
   - `getCategorizedTransactions`
 
+## Linking Bank Accounts (Development/Testing Mode)
+
+This application uses Plaid's Sandbox environment for development and testing purposes. The Sandbox provides a safe, simulated banking environment that allows you to test the application's features without using real banking credentials.
+
+### Sandbox Testing Instructions
+
+> **Note**: These steps are for development/testing only. In production, users will connect their actual bank accounts.
+
+1. Click "Continue" on the Plaid Link interface
+2. When prompted for a phone number, leave it blank and click "Continue as guest"
+3. Select your test institution (recommended: Chase or Wells Fargo)
+4. Click "Continue login"
+5. Use these test credentials:
+   - Username: `user_good`
+   - Password: `pass_good`
+6. On the identity verification screen, leave it blank and click "Get code"
+7. Enter verification code: `1234`
+8. Select accounts to connect:
+   - Choose either or both:
+     - Plaid Checking Account
+     - Plaid Savings Account
+   - No need to select additional information
+   - Click "Continue"
+9. Review and accept terms and conditions
+10. Click "Connect account information"
+11. You should see a success message
+12. When prompted for phone number again, leave blank and click "Submit"
+
 ## Database Setup
 
 ### Appwrite Collections
