@@ -22,7 +22,7 @@ const AccountInfo = ({ account }: AccountInfoProps) => {
   return (
     <div
       onClick={handleBankChange}
-      className="gap-5 bg-gradient-to-br from-[#f0f0f8] to-[#d6d6ef] flex p-4 transition-all rounded-xl  shadow-sm cursor-pointer"
+      className="gap-5 flex p-4 transition-all rounded-xl border border-stone-200 cursor-pointer"
     >
       <figure className="flex-center h-fit rounded-full">
         <Image
@@ -38,7 +38,7 @@ const AccountInfo = ({ account }: AccountInfoProps) => {
           <h2 className="text-16 line-clamp-1 flex-1 font-bold ">
             {account.officialName}
           </h2>
-          <p className="text-12 rounded-full px-3 py-1 font-medium bg-[#edebf5]">
+          <p className="text-12 rounded-full px-3 py-1 font-medium bg-[#e8e7ed]">
             {account.subtype}
           </p>
         </div>

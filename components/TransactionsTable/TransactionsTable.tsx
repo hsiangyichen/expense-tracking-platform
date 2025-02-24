@@ -43,9 +43,9 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
   };
 
   return (
-    <div className="bg-white py-4 pb-6 px-6 rounded-xl">
+    <div className="bg-white rounded-xl p-6 pt-4">
       <Table>
-        <TableCaption>Your recent transactions</TableCaption>
+        <TableCaption className="pt-1">Your recent transactions</TableCaption>
         <TableHeader>
           <TableRow className="border-transparent">
             <TableHead className="px-2">Merchant</TableHead>

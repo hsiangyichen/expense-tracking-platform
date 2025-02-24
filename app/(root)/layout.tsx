@@ -65,7 +65,7 @@ export default async function RootLayout({
             <MobileSidebar user={user} />
           </div>
         </div>
-        <div className="flex flex-col flex-1 h-screen">{children}</div>
+        <div className="flex flex-col h-screen">{children}</div>
       </div>
       <RightSidebar
         user={user}
