@@ -44,7 +44,7 @@ const HomeRecentTransactions = ({
 
   return (
     <section className="flex-1 w-full flex flex-col overflow-hidden">
-      <header className="w-full shrink-0 flex justify-between">
+      <header className="w-full shrink-0 flex justify-between pb-2">
         <h2 className="text-20 md:text-24 font-semibold text-gray-900">
           Recent transactions
         </h2>
@@ -75,7 +75,7 @@ const HomeRecentTransactions = ({
         onValueChange={handleAccountChange}
         className="flex-1 flex flex-col overflow-hidden"
       >
-        <ScrollArea className="w-full whitespace-nowrap shrink-0 h-10">
+        <ScrollArea className="w-full whitespace-nowrap shrink-0 h-12">
           <TabsList className="w-full inline-flex mb-0">
             {accounts.map((account) => (
               <TabsTrigger
@@ -105,7 +105,7 @@ const HomeRecentTransactions = ({
         </TabsContent>
       </Tabs>
 
-      <div className="mt-4 xl:hidden">
+      <div className="mt-4 xl:hidden ">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
             (tx) => tx.accountId === account.accountId
