@@ -4,16 +4,9 @@ import { HeaderBox } from "@/components/HeaderBox";
 import { HistoryRecentTransactions } from "@/components/HistoryRecentTransactions";
 import { getAccountStats } from "@/lib/actions/account.action";
 import { getFilteredTransactions } from "@/lib/actions/transaction.action";
+import { PageProps } from "@/.next/types/app/layout";
 
-interface TransactionHistoryProps {
-  params: { id: string };
-  searchParams?: { page?: string };
-}
-
-const TransactionHistory = async ({
-  params,
-  searchParams,
-}: TransactionHistoryProps) => {
+const TransactionHistory = async ({ params, searchParams }: PageProps) => {
   const { id: accountId } = await params;
   const pageParam = await searchParams;
 
@@ -58,7 +51,7 @@ const TransactionHistory = async ({
   }
 
   return (
-    <section className="flex w-full flex-row max-xl:max-h-screen max-xl:overflow-y-scroll">
+    <section className="flex w-full max-xl:max-h-screen max-xl:overflow-y-scroll">
       <div className="flex w-full flex-col gap-8 px-5 sm:px-8 py-8 lg:py-12 xl:max-h-screen xl:overflow-y-scroll">
         <header className="flex flex-col justify-between gap-8">
           <HeaderBox

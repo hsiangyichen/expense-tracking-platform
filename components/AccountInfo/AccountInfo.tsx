@@ -22,7 +22,7 @@ const AccountInfo = ({ account }: AccountInfoProps) => {
   return (
     <div
       onClick={handleBankChange}
-      className="gap-5 flex p-4 transition-all border rounded-lg cursor-pointer"
+      className="gap-5 bg-gradient-to-br from-[#f0f0f8] to-[#d6d6ef] flex p-4 transition-all rounded-xl  shadow-sm cursor-pointer"
     >
       <figure className="flex-center h-fit rounded-full">
         <Image
