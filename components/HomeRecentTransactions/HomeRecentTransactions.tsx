@@ -15,6 +15,7 @@ import { formUrlQuery } from "@/lib/utils";
 import { HomeRecentTransactionsProps } from "./HomeRecentTransactions.types";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 
 const HomeRecentTransactions = ({
   accounts,
@@ -25,18 +26,25 @@ const HomeRecentTransactions = ({
   const defaultAccountId = accounts.length > 0 ? accounts[0].accountId : "";
   const selectedAccountId = searchParams.get("id") || defaultAccountId;
 
+  const [currentTab, setCurrentTab] = useState(
+    searchParams.get("id") || accounts[0].accountId
+  );
+
   const handleAccountChange = (accountId: string) => {
     const newUrl = formUrlQuery({
       params: searchParams.toString(),
       key: "id",
       value: accountId,
     });
+
+    setCurrentTab(accountId);
+
     router.replace(newUrl, { scroll: false });
   };
 
   return (
-    <section className="flex w-full flex-col flex-1 overflow-y-hidden">
-      <header className="flex items-center justify-between mb-4">
+    <section className="flex-1 w-full flex flex-col overflow-hidden">
+      <header className="w-full shrink-0 flex justify-between pb-2">
         <h2 className="text-20 md:text-24 font-semibold text-gray-900">
           Recent transactions
         </h2>
@@ -65,10 +73,10 @@ const HomeRecentTransactions = ({
       <Tabs
         value={selectedAccountId}
         onValueChange={handleAccountChange}
-        className="w-full hidden lg:flex flex-col flex-1 h-screen"
+        className="flex-1 flex flex-col overflow-hidden"
       >
-        <ScrollArea className="w-full whitespace-nowrap">
-          <TabsList className="mb-6 w-full inline-flex">
+        <ScrollArea className="w-full whitespace-nowrap shrink-0 h-12">
+          <TabsList className="w-full inline-flex mb-0">
             {accounts.map((account) => (
               <TabsTrigger
                 key={account.id}
@@ -85,26 +93,19 @@ const HomeRecentTransactions = ({
           </TabsList>
           <ScrollBar orientation="horizontal" className="invisible" />
         </ScrollArea>
-        {accounts.map((account) => {
-          const accountTransactions = transactions.filter(
-            (tx) => tx.accountId === account.accountId
-          );
-
-          return (
-            <TabsContent
-              key={account.id}
-              value={account.accountId}
-              className="flex-1 overflow-y-scroll no-scrollbar"
-            >
-              <>
-                <TransactionsTable transactions={accountTransactions} />
-              </>
-            </TabsContent>
-          );
-        })}
+        <TabsContent
+          value={currentTab}
+          className="flex-1 overflow-y-auto no-scroll"
+        >
+          <TransactionsTable
+            transactions={transactions.filter(
+              (tx) => tx.accountId === currentTab
+            )}
+          />
+        </TabsContent>
       </Tabs>
 
-      <div className="mt-4 xl:hidden">
+      <div className="mt-4 xl:hidden ">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
             (tx) => tx.accountId === account.accountId
