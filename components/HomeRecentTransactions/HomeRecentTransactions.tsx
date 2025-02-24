@@ -43,7 +43,7 @@ const HomeRecentTransactions = ({
   };
 
   return (
-    <section className="flex-1 w-full flex flex-col overflow-hidden">
+    <section className="flex-1 w-full flex flex-col lg:overflow-hidden">
       <header className="w-full shrink-0 flex justify-between pb-2">
         <h2 className="text-20 md:text-24 font-semibold text-gray-900">
           Recent transactions
@@ -73,9 +73,9 @@ const HomeRecentTransactions = ({
       <Tabs
         value={selectedAccountId}
         onValueChange={handleAccountChange}
-        className="flex-1 flex flex-col overflow-hidden"
+        className="xl:overflow-hidden h-full lg:flex-1 lg:flex lg:flex-col hidden"
       >
-        <ScrollArea className="w-full whitespace-nowrap shrink-0 h-12">
+        <ScrollArea className="w-full shrink-0 h-12">
           <TabsList className="w-full inline-flex mb-0">
             {accounts.map((account) => (
               <TabsTrigger
@@ -95,7 +95,7 @@ const HomeRecentTransactions = ({
         </ScrollArea>
         <TabsContent
           value={currentTab}
-          className="flex-1 overflow-y-auto no-scroll"
+          className="h-full md:flex-1 md:overflow-y-auto md:no-scroll"
         >
           <TransactionsTable
             transactions={transactions.filter(
