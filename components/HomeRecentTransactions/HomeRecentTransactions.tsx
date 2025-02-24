@@ -13,6 +13,7 @@ import { AccountTabItem } from "@/components/AccountTabItem";
 import { TransactionsTable } from "@/components/TransactionsTable";
 import { formUrlQuery } from "@/lib/utils";
 import { HomeRecentTransactionsProps } from "./HomeRecentTransactions.types";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const HomeRecentTransactions = ({
   accounts,
@@ -64,21 +65,24 @@ const HomeRecentTransactions = ({
         onValueChange={handleAccountChange}
         className="w-full hidden lg:block"
       >
-        <TabsList className="mb-6 flex w-full">
-          {accounts.map((account) => (
-            <TabsTrigger
-              key={account.id}
-              value={account.accountId}
-              className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
-            >
-              <AccountTabItem
-                account={account}
-                isActive={selectedAccountId === account.accountId}
-                urlStrategy="query"
-              />
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <ScrollArea className="w-full whitespace-nowrap">
+          <TabsList className="mb-6 w-full inline-flex">
+            {accounts.map((account) => (
+              <TabsTrigger
+                key={account.id}
+                value={account.accountId}
+                className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
+              >
+                <AccountTabItem
+                  account={account}
+                  isActive={selectedAccountId === account.accountId}
+                  urlStrategy="query"
+                />
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <ScrollBar orientation="horizontal" className="invisible" />
+        </ScrollArea>
 
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
