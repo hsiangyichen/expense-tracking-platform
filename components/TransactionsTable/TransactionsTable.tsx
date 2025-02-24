@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { TransactionTableProps } from "./TransactionsTable.types";
+import { CreditCard } from "lucide-react";
 
 const TransactionsTable = ({ transactions }: TransactionTableProps) => {
   const formatAmount = (amount: number) => {
@@ -68,7 +69,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
               );
               return (
                 <TableRow key={transaction.id}>
-                  <TableCell className="font-medium w-auto max-w-32">
+                  <TableCell className="font-medium min-w-fit">
                     <div className="flex items-center gap-4 py-2">
                       {transaction.image ? (
                         <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -80,9 +81,11 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                           />
                         </div>
                       ) : (
-                        <div className="w-8 h-8 bg-gray-200 rounded-full" />
+                        <div className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full">
+                          <CreditCard className="w-4 h-4 text-gray-500" />
+                        </div>
                       )}
-                      <span>
+                      <span className="flex-1 w-32">
                         {transaction.merchantName || transaction.name}
                       </span>
                     </div>

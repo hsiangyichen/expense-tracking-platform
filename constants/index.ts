@@ -1,6 +1,5 @@
 import {
   Home,
-  Wallet2,
   Receipt,
   PieChart,
   DollarSign,
@@ -25,11 +24,6 @@ export const sidebarLinks = [
     icon: Home,
     route: "/",
     label: "Home",
-  },
-  {
-    icon: Wallet2,
-    route: "/banks-and-cards",
-    label: "My Banks & Cards",
   },
   {
     icon: Receipt,

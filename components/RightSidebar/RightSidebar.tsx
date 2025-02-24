@@ -3,7 +3,7 @@ import { BankCard } from "@/components/BankCard";
 import { RightSidebarProps } from "./RightSidebar.types";
 import { PlaidLink } from "@/components/PlaidLink";
 
-const RightSidebar = ({ user, accounts, transactions }: RightSidebarProps) => {
+const RightSidebar = ({ user, accounts }: RightSidebarProps) => {
   return (
     <aside className="flex-col lg:flex w-[365px] my-12 mr-8 hidden h-screen max-h-screen">
       <section className="flex flex-col justify-between gap-8 px-6 p-12 pt-6 rounded-xl border border-stone-200 shadow-sm">

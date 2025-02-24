@@ -12,13 +12,15 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
   const [activeTab, setActiveTab] = useState<string>(
     categorizedTransactions[0]?.category.value || ""
   );
+  console.log("jjj", categorizedTransactions);
+
   return (
     <Tabs
       value={activeTab}
       onValueChange={setActiveTab}
-      className="w-full overflow-x-scroll "
+      className="w-full overflow-x-scroll"
     >
-      <ScrollArea className="w-full min-h-full">
+      <ScrollArea className="w-full">
         <TabsList className="flex h-56 gap-6 p-0 px-5 sm:px-8">
           {categorizedTransactions.map((item) => (
             <CategoryBox key={item.category.value} item={item} />
@@ -28,7 +30,7 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
       </ScrollArea>
       {categorizedTransactions.map((item) => (
         <TabsContent key={item.category.value} value={item.category.value}>
-          <Card className="border-none px-5 sm:px-8">
+          <Card className="border-none px-5 sm:px-8 ">
             <div className="space-y-4">
               {item.transactions.length > 0 ? (
                 item.transactions.map((transaction) => (
