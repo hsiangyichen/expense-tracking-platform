@@ -152,7 +152,7 @@ yarn dev
 
 ### Authentication
 
-- `GET /api/auth/sync` - Syncs user data between Clerk and Appwrite
+- `GET /api/auth/login` - Syncs user data between Clerk and Appwrite
 
 ### Plaid Integration
 
