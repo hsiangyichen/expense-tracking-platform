@@ -48,7 +48,6 @@ const Home = async () => {
 
   return (
     <section className="flex flex-col w-full h-screen gap-8 px-5 sm:px-8 pt-7 pb-10 lg:pt-12">
-      {/* gap-8 px-5 sm:px-8 pt-7 pb-10 lg:pt-12  */}
       <header className="flex flex-col justify-between">
         <HeroBox
           accounts={accounts}
