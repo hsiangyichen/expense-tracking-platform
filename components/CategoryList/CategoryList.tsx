@@ -12,7 +12,6 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
   const [activeTab, setActiveTab] = useState<string>(
     categorizedTransactions[0]?.category.value || ""
   );
-  console.log("jjj", categorizedTransactions);
 
   return (
     <Tabs
