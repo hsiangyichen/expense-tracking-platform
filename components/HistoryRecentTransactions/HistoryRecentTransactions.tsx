@@ -7,6 +7,7 @@ import { AccountTabItem } from "@/components/AccountTabItem";
 import { TransactionsTable } from "@/components/TransactionsTable";
 import { useRouter } from "next/navigation";
 import { HistoryRecentTransactionsProps } from "./HistoryRecentTransactions.types";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const HistoryRecentTransactions = ({
   accounts,
@@ -27,22 +28,25 @@ const HistoryRecentTransactions = ({
         onValueChange={handleTabChange}
         className="w-full"
       >
-        <TabsList className=" mb-8 flex w-full flex-nowrap">
-          {accounts.map((account) => (
-            <TabsTrigger
-              key={account.id}
-              value={account.accountId}
-              className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
-            >
-              <AccountTabItem
-                account={account}
-                isActive={currentAccount.accountId === account.accountId}
-                urlStrategy="path"
-                baseUrl="/transaction-history"
-              />
-            </TabsTrigger>
-          ))}
-        </TabsList>
+        <ScrollArea className="w-full whitespace-nowrap">
+          <TabsList className=" mb-8 flex w-full flex-nowrap">
+            {accounts.map((account) => (
+              <TabsTrigger
+                key={account.id}
+                value={account.accountId}
+                className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
+              >
+                <AccountTabItem
+                  account={account}
+                  isActive={currentAccount.accountId === account.accountId}
+                  urlStrategy="path"
+                  baseUrl="/transaction-history"
+                />
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <ScrollBar orientation="horizontal" className="invisible" />
+        </ScrollArea>
         <TabsContent value={currentAccount.accountId} className="space-y-4">
           <AccountInfo
             account={currentAccount}
