@@ -35,9 +35,7 @@ const AccountInfo = ({ account }: AccountInfoProps) => {
       </figure>
       <div className="flex w-full flex-1 flex-col justify-center gap-1">
         <div className="flex flex-1 items-center justify-between gap-2 overflow-hidden">
-          <h2 className="text-16 line-clamp-1 flex-1 font-bold ">
-            {account.officialName}
-          </h2>
+          <h2 className="text-16 flex-1 font-bold ">{account.officialName}</h2>
           <p className="text-12 rounded-full px-3 py-1 font-medium bg-[#e8e7ed]">
             {account.subtype}
           </p>

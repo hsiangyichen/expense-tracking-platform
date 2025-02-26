@@ -4,6 +4,7 @@ import { HistoryRecentTransactions } from "@/components/HistoryRecentTransaction
 import { getAccountStats } from "@/lib/actions/account.action";
 import { getFilteredTransactions } from "@/lib/actions/transaction.action";
 import { PageProps } from "@/.next/types/app/layout";
+import { HeaderBox } from "@/components/HeaderBox";
 
 const TransactionHistory = async ({ params, searchParams }: PageProps) => {
   const { id: accountId } = await params;
@@ -50,18 +51,21 @@ const TransactionHistory = async ({ params, searchParams }: PageProps) => {
   }
 
   return (
-    <section className="flex w-full max-xl:max-h-screen max-xl:overflow-y-scroll">
-      {transactionResponse.transactions.length > 0 ? (
-        <HistoryRecentTransactions
-          accounts={accountStats.accounts}
-          currentAccount={currentAccount}
-          initialTransactions={transactionResponse.transactions}
-          totalPages={transactionResponse.totalPages}
-          currentPage={page}
+    <section className="flex flex-col w-full gap-5 lg:gap-8 px-5 sm:px-8 pb-10 lg:pt-12">
+      <header className="flex flex-col justify-between">
+        <HeaderBox
+          type="title"
+          title="Transaction History"
+          subtext="View your transaction history for this account."
         />
-      ) : (
-        <p className="text-center text-stone-800">No transactions found.</p>
-      )}
+      </header>
+      <HistoryRecentTransactions
+        accounts={accountStats.accounts}
+        currentAccount={currentAccount}
+        initialTransactions={transactionResponse.transactions}
+        totalPages={transactionResponse.totalPages}
+        currentPage={page}
+      />
     </section>
   );
 };
