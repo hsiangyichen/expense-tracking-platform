@@ -13,7 +13,9 @@ const Footer = ({ user }: FooterProps) => {
     event.stopPropagation();
 
     try {
-      await signOut();
+      await signOut(() => {
+        window.location.href = "/";
+      });
       console.log("Successfully signed out");
     } catch (error) {
       console.error("Error signing out:", error);
