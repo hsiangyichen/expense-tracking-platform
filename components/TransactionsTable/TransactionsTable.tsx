@@ -2,8 +2,8 @@ import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
+  TableCaption,
   TableHead,
   TableHeader,
   TableRow,
@@ -43,7 +43,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
   };
 
   return (
-    <div className="bg-white rounded-xl p-6 pt-4">
+    <div className="bg-white rounded-xl">
       <Table>
         <TableCaption className="pt-1">Your recent transactions</TableCaption>
         <TableHeader>
@@ -52,60 +52,52 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
             <TableHead className="px-2">Date</TableHead>
             <TableHead className="px-2">Amount</TableHead>
             <TableHead className="pl-6">Channel</TableHead>
-            <TableHead className="px-2 ">Category</TableHead>
+            <TableHead className="px-2">Category</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {transactions.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={4} className="text-center text-gray-500">
-                No transactions found
-              </TableCell>
-            </TableRow>
-          ) : (
-            transactions.map((transaction) => {
-              const { text: amountText, className: amountClass } = formatAmount(
-                transaction.amount
-              );
-              return (
-                <TableRow key={transaction.id}>
-                  <TableCell className="font-medium min-w-fit">
-                    <div className="flex items-center gap-4 py-2">
-                      {transaction.image ? (
-                        <div className="w-8 h-8 rounded-full overflow-hidden">
-                          <Image
-                            src={transaction.image}
-                            alt={transaction.merchantName || transaction.name}
-                            width={32}
-                            height={32}
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full">
-                          <CreditCard className="w-4 h-4 text-gray-500" />
-                        </div>
-                      )}
-                      <span className="flex-1 w-32">
-                        {transaction.merchantName || transaction.name}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-nowrap">
-                    {formatDate(transaction.date)}
-                  </TableCell>
-                  <TableCell className={`text-nowrap ${amountClass}`}>
-                    {amountText}
-                  </TableCell>
-                  <TableCell className="pl-6 capitalize">
-                    {transaction.paymentChannel}
-                  </TableCell>
-                  <TableCell className="w-32">
-                    <CategoryBadge category={transaction.category} />
-                  </TableCell>
-                </TableRow>
-              );
-            })
-          )}
+          {transactions.map((transaction) => {
+            const { text: amountText, className: amountClass } = formatAmount(
+              transaction.amount
+            );
+            return (
+              <TableRow key={transaction.id}>
+                <TableCell className="font-medium min-w-fit">
+                  <div className="flex items-center gap-4 py-2">
+                    {transaction.image ? (
+                      <div className="w-8 h-8 rounded-full overflow-hidden">
+                        <Image
+                          src={transaction.image}
+                          alt={transaction.merchantName || transaction.name}
+                          width={32}
+                          height={32}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full">
+                        <CreditCard className="w-4 h-4 text-gray-500" />
+                      </div>
+                    )}
+                    <span className="flex-1 w-32">
+                      {transaction.merchantName || transaction.name}
+                    </span>
+                  </div>
+                </TableCell>
+                <TableCell className="text-nowrap">
+                  {formatDate(transaction.date)}
+                </TableCell>
+                <TableCell className={`text-nowrap ${amountClass}`}>
+                  {amountText}
+                </TableCell>
+                <TableCell className="pl-6 capitalize">
+                  {transaction.paymentChannel}
+                </TableCell>
+                <TableCell className="w-32">
+                  <CategoryBadge category={transaction.category} />
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </div>
