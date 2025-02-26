@@ -57,44 +57,47 @@ const HomeRecentTransactions = ({
           <ArrowRight className="w-4 h-4" />
         </Link>
       </header>
-      <div className="lg:hidden">
-        <Select value={selectedAccountId} onValueChange={handleAccountChange}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select an account" />
-          </SelectTrigger>
-          <SelectContent>
-            {accounts.map((account) => (
-              <SelectItem key={account.id} value={account.accountId}>
-                {account.institutionName} - {account.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <Tabs
-        value={selectedAccountId}
-        onValueChange={handleAccountChange}
-        className="xl:overflow-hidden h-full lg:flex-1 lg:flex lg:flex-col hidden"
-      >
-        <ScrollArea className="w-full shrink-0 h-12">
-          <TabsList className="w-full inline-flex mb-0">
-            {accounts.map((account) => (
-              <TabsTrigger
-                key={account.id}
-                value={account.accountId}
-                className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
-              >
-                <AccountTabItem
-                  account={account}
-                  isActive={selectedAccountId === account.accountId}
-                  urlStrategy="query"
-                />
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          <ScrollBar orientation="horizontal" className="invisible" />
-        </ScrollArea>
-        {accounts.length > 0 ? (
+      {accounts.length > 0 && (
+        <div className="lg:hidden">
+          <Select value={selectedAccountId} onValueChange={handleAccountChange}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select an account" />
+            </SelectTrigger>
+            <SelectContent>
+              {accounts.map((account) => (
+                <SelectItem key={account.id} value={account.accountId}>
+                  {account.institutionName} - {account.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
+      {accounts.length > 0 ? (
+        <Tabs
+          value={selectedAccountId}
+          onValueChange={handleAccountChange}
+          className="xl:overflow-hidden h-full lg:flex-1 lg:flex lg:flex-col hidden"
+        >
+          <ScrollArea className="w-full shrink-0 h-12">
+            <TabsList className="w-full inline-flex mb-0">
+              {accounts.map((account) => (
+                <TabsTrigger
+                  key={account.id}
+                  value={account.accountId}
+                  className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
+                >
+                  <AccountTabItem
+                    account={account}
+                    isActive={selectedAccountId === account.accountId}
+                    urlStrategy="query"
+                  />
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            <ScrollBar orientation="horizontal" className="invisible" />
+          </ScrollArea>
+
           <TabsContent
             value={currentTab}
             className="h-full md:flex-1 md:overflow-y-auto md:no-scroll"
@@ -105,11 +108,14 @@ const HomeRecentTransactions = ({
               )}
             />
           </TabsContent>
-        ) : (
+        </Tabs>
+      ) : (
+        <div className="py-5 lg:py-8">
           <Notfound item="transactions" />
-        )}
-      </Tabs>
-      <div className="mt-4 xl:hidden ">
+        </div>
+      )}
+
+      <div className="mt-4 lg:hidden ">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
             (tx) => tx.accountId === account.accountId

@@ -8,6 +8,7 @@ import { getAccountStats } from "@/lib/actions/account.action";
 import { PlaidAccountItem, PlaidTransaction } from "@/types";
 import { getTransactionStats } from "@/lib/actions/transaction.action";
 import { RightSidebar } from "@/components/RightSidebar";
+import Link from "next/link";
 
 export default async function RootLayout({
   children,
@@ -54,13 +55,15 @@ export default async function RootLayout({
       <Sidebar user={user} accounts={accounts} />
       <div className="flex flex-col overflow-x-auto flex-1 h-screen">
         <div className="flex h-20 items-center justify-between p-5 sm:p-8 md:hidden">
-          <Image
-            src="/icons/logo.svg"
-            alt="logo"
-            width={200}
-            height={30}
-            className="w-28"
-          />
+          <Link href="/" className="flex cursor-pointer relative -top-1">
+            <Image
+              src="/icons/logo.svg"
+              alt="logo"
+              width={200}
+              height={30}
+              className="w-28"
+            />
+          </Link>
           <div>
             <MobileSidebar user={user} />
           </div>
