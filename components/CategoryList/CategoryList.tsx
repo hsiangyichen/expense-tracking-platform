@@ -29,7 +29,7 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
       className="w-full overflow-x-scroll"
     >
       <ScrollArea className="w-full">
-        <TabsList className="flex h-56 gap-6 p-0 px-5 sm:px-8">
+        <TabsList className="flex h-56 gap-6 p-0 px-2">
           {categorizedTransactions.map((item) => (
             <CategoryBox key={item.category.value} item={item} />
           ))}
@@ -38,7 +38,7 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
       </ScrollArea>
       {categorizedTransactions.map((item) => (
         <TabsContent key={item.category.value} value={item.category.value}>
-          <Card className="border-none px-5 sm:px-8 ">
+          <Card className="border-none px-2">
             <div className="space-y-4">
               {item.transactions.length > 0 ? (
                 item.transactions.map((transaction) => (

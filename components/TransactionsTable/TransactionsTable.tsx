@@ -43,7 +43,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
   };
 
   return (
-    <div className="bg-white rounded-xl">
+    <div className="bg-white rounded-xl p-4">
       <Table>
         <TableCaption className="pt-1">Your recent transactions</TableCaption>
         <TableHeader>

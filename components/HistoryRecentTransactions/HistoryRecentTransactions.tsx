@@ -22,14 +22,14 @@ const HistoryRecentTransactions = ({
   };
 
   return (
-    <section className="flex w-full flex-col gap-6">
+    <section className="flex w-full flex-col">
       <Tabs
         value={currentAccount.accountId}
         onValueChange={handleTabChange}
         className="w-full"
       >
         <ScrollArea className="w-full whitespace-nowrap">
-          <TabsList className=" mb-8 flex w-full flex-nowrap">
+          <TabsList className="mb-2 flex w-full flex-nowrap">
             {accounts.map((account) => (
               <TabsTrigger
                 key={account.id}

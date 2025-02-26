@@ -56,7 +56,7 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
       <button
         onClick={toggleSidebar}
         aria-label="Toggle menu"
-        className="focus:outline-none focus:ring-2 focus:ring-stone-400 rounded-md p-2"
+        className="focus:outline-none focus:border-collapse rounded-md"
       >
         <Menu />
       </button>
@@ -77,7 +77,7 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
       >
         <div className="flex h-full flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between p-4 border-b border-stone-100">
+            <div className="flex items-center justify-between p-4">
               <Link href="/" className="cursor-pointer" onClick={closeSidebar}>
                 <Image
                   src="/icons/logo.svg"
@@ -90,7 +90,7 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
               <button
                 onClick={closeSidebar}
                 aria-label="Close menu"
-                className="focus:outline-none focus:ring-2 focus:ring-stone-400 rounded-md p-1"
+                className="focus:outline-none focus:border-collapse rounded-md p-1"
               >
                 <X size={20} />
               </button>
