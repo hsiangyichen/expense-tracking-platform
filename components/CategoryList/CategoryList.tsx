@@ -7,11 +7,20 @@ import { Tabs, TabsList, TabsContent } from "@/components/ui/tabs";
 import { CategoryListProps } from "./CategoryList.types";
 import { CategoryBox } from "../CategoryBox";
 import { toPascalCase } from "@/lib/utils";
+import { Notfound } from "../Notfound";
 
 const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
   const [activeTab, setActiveTab] = useState<string>(
     categorizedTransactions[0]?.category.value || ""
   );
+
+  const hasTransactions = categorizedTransactions.some(
+    (item) => item.transactions.length > 0
+  );
+
+  if (!hasTransactions) {
+    return <Notfound item="transactions" />;
+  }
 
   return (
     <Tabs
