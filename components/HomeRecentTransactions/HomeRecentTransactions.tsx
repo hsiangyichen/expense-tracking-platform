@@ -16,6 +16,7 @@ import { HomeRecentTransactionsProps } from "./HomeRecentTransactions.types";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { Notfound } from "@/components/Notfound";
 
 const HomeRecentTransactions = ({
   accounts,
@@ -27,7 +28,7 @@ const HomeRecentTransactions = ({
   const selectedAccountId = searchParams.get("id") || defaultAccountId;
 
   const [currentTab, setCurrentTab] = useState(
-    searchParams.get("id") || accounts[0].accountId
+    searchParams.get("id") || (accounts.length > 0 ? accounts[0].accountId : "")
   );
 
   const handleAccountChange = (accountId: string) => {
@@ -93,18 +94,21 @@ const HomeRecentTransactions = ({
           </TabsList>
           <ScrollBar orientation="horizontal" className="invisible" />
         </ScrollArea>
-        <TabsContent
-          value={currentTab}
-          className="h-full md:flex-1 md:overflow-y-auto md:no-scroll"
-        >
-          <TransactionsTable
-            transactions={transactions.filter(
-              (tx) => tx.accountId === currentTab
-            )}
-          />
-        </TabsContent>
+        {accounts.length > 0 ? (
+          <TabsContent
+            value={currentTab}
+            className="h-full md:flex-1 md:overflow-y-auto md:no-scroll"
+          >
+            <TransactionsTable
+              transactions={transactions.filter(
+                (tx) => tx.accountId === currentTab
+              )}
+            />
+          </TabsContent>
+        ) : (
+          <Notfound item="transactions" />
+        )}
       </Tabs>
-
       <div className="mt-4 xl:hidden ">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
