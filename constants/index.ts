@@ -22,14 +22,14 @@ export const sidebarLinks = [
 
 /* ------------------------------ Color Palette ----------------------------- */
 export const colorPalette = [
-  "#FFE4E6",
-  "#FDA4AF",
-  "#F7CFCC",
-  "#F2C2CE",
-  "#D7C0DC",
-  "#F2D3DD",
-  "#EFD2ED",
-  "#F6BEBE",
+  "#051537",
+  "#04247C",
+  "#003D7A",
+  "#0458AB",
+  "#145DA0",
+  "#60A3D9",
+  "#BFD7ED",
+  "#003B73",
 ];
 
 /* ------------------------------ Transaction Categories ----------------------------- */
