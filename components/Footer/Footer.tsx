@@ -8,6 +8,18 @@ import { LogOut } from "lucide-react";
 const Footer = ({ user }: FooterProps) => {
   const { signOut } = useClerk();
 
+  const handleSignOut = async (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    try {
+      await signOut();
+      console.log("Successfully signed out");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <footer className="flex flex-row md:flex-col cursor-pointer xl:flex-row items-center justify-center gap-2 py-6">
       <div className="flex size-7 rounded-full bg-neutral-50 items-center justify-center">
@@ -24,7 +36,7 @@ const Footer = ({ user }: FooterProps) => {
       </div>
       <div
         className="relative size-5 flex md:hidden xl:min-w-max xl:flex xl:justify-center xl:items-center"
-        onClick={() => signOut()}
+        onClick={handleSignOut}
       >
         <LogOut
           strokeWidth={1.75}
