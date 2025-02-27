@@ -6,22 +6,22 @@ import type { CategoryBoxProps } from "./CategoryBox.types";
 import { toPascalCase } from "@/lib/utils";
 
 const categoryGradients: { [key: string]: string } = {
-  INCOME: "bg-gradient-to-br from-rose-50 to-green-200",
-  "TRANSFER IN": "bg-gradient-to-br from-rose-50 to-emerald-200",
-  "TRANSFER OUT": "bg-gradient-to-br from-rose-50 to-red-200",
-  "LOAN PAYMENTS": "bg-gradient-to-br from-rose-50 to-emerald-200",
-  "BANK FEES": "bg-gradient-to-br from-rose-50 to-gray-200",
-  ENTERTAINMENT: "bg-gradient-to-br from-rose-50 to-green-200",
-  "FOOD AND DRINK": "bg-gradient-to-br from-rose-50 to-orange-200",
-  "GENERAL MERCHANDISE": "bg-gradient-to-br from-rose-50 to-indigo-200",
-  "HOME IMPROVEMENT": "bg-gradient-to-br from-rose-50 to-blue-200",
-  MEDICAL: "bg-gradient-to-br from-rose-50 to-red-200",
-  "PERSONAL CARE": "bg-gradient-to-br from-rose-50 to-purple-200",
-  "GENERAL SERVICES": "bg-gradient-to-br from-rose-50 to-cyan-200",
-  "GOVERNMENT AND NON PROFIT": "bg-gradient-to-br from-rose-50 to-gray-200",
-  TRANSPORTATION: "bg-gradient-to-br from-rose-50 to-sky-200",
-  TRAVEL: "bg-gradient-to-br from-rose-50 to-violet-200",
-  "RENT AND UTILITIES": "bg-gradient-to-br from-rose-50 to-blue-200",
+  INCOME: "bg-gradient-to-br from-[#CBE4DE] to-green-200",
+  "TRANSFER IN": "bg-gradient-to-br from-[#CBE4DE] to-emerald-200",
+  "TRANSFER OUT": "bg-gradient-to-br from-[#CBE4DE] to-red-200",
+  "LOAN PAYMENTS": "bg-gradient-to-br from-[#CBE4DE] to-emerald-200",
+  "BANK FEES": "bg-gradient-to-br from-[#CBE4DE] to-gray-200",
+  ENTERTAINMENT: "bg-gradient-to-br from-[#CBE4DE] to-green-200",
+  "FOOD AND DRINK": "bg-gradient-to-br from-[#CBE4DE] to-blue-200",
+  "GENERAL MERCHANDISE": "bg-gradient-to-br from-[#CBE4DE] to-indigo-200",
+  "HOME IMPROVEMENT": "bg-gradient-to-br from-[#CBE4DE] to-blue-200",
+  MEDICAL: "bg-gradient-to-br from-[#CBE4DE] to-red-200",
+  "PERSONAL CARE": "bg-gradient-to-br from-[#CBE4DE] to-purple-200",
+  "GENERAL SERVICES": "bg-gradient-to-br from-[#CBE4DE] to-cyan-200",
+  "GOVERNMENT AND NON PROFIT": "bg-gradient-to-br from-[#CBE4DE] to-gray-200",
+  TRANSPORTATION: "bg-gradient-to-br from-[#CBE4DE] to-sky-200",
+  TRAVEL: "bg-gradient-to-br from-[#CBE4DE] to-violet-200",
+  "RENT AND UTILITIES": "bg-gradient-to-br from-[#CBE4DE] to-blue-200",
 };
 
 const mockBudgetData: { [key: string]: number } = {

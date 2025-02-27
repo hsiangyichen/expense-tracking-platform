@@ -32,14 +32,14 @@ const BankCard = ({ account, userName }: BankCardProps) => {
           </article>
         </div>
 
-        <div className="flex size-full flex-1 flex-col items-end justify-between rounded-r-2xl bg-gradient-to-br from-[#22223B] to-[#1A1A2E] bg-cover bg-center bg-no-repeat py-5 pr-5">
+        <div className="flex flex-1 flex-col items-end justify-between rounded-r-2xl bg-gradient-to-br from-[#22223B] to-[#1A1A2E] bg-cover bg-center bg-no-repeat py-5 pr-5 pl-2">
           <Image src="/icons/Paypass.svg" alt="pay" width={20} height={24} />
           <Image
             src="/icons/mastercard.svg"
             width={45}
             height={32}
             alt="mastercard"
-            className="ml-6"
+            className="p-0"
           />
         </div>
       </Link>
