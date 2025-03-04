@@ -1,89 +1,54 @@
 "use client";
-import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-import { TrendingUp, TrendingDown } from "lucide-react";
 
-// Register required Chart.js components
-ChartJS.register(ArcElement, Tooltip);
+import React, { useState, useEffect } from "react";
+import { PieChart, Pie, Cell } from "recharts";
 
-export interface CategoryDoughnutProps {
-  spent: number;
+interface CategoryPieChartProps {
+  totalSpent: number;
   budget: number;
-  isIncome?: boolean;
 }
-const CategoryPieChart = ({
-  spent,
-  budget,
-  isIncome = false,
-}: CategoryDoughnutProps) => {
-  // Calculate percentage of budget spent
-  const percentage = Math.min(100, Math.max(0, (spent / budget) * 100));
-  const remaining = 100 - percentage;
 
-  // Determine chart colors based on category type and percentage
-  const getChartColors = () => {
-    if (isIncome) {
-      return ["#10B981", "#E5E7EB"]; // Green for income
-    } else if (percentage > 75) {
-      return ["#EF4444", "#E5E7EB"]; // Red when over 75% of budget
-    } else {
-      return ["#3B82F6", "#E5E7EB"]; // Blue for normal spending
-    }
-  };
+const CategoryPieChart = ({ totalSpent, budget }: CategoryPieChartProps) => {
+  const [isClient, setIsClient] = useState(false);
 
-  const chartData = {
-    datasets: [
-      {
-        data: [percentage, remaining > 0 ? remaining : 0],
-        backgroundColor: getChartColors(),
-        borderWidth: 0,
-        hoverOffset: 2,
-      },
-    ],
-    labels: ["Spent", "Remaining"],
-  };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  const options = {
-    cutout: "70%",
-    plugins: {
-      tooltip: {
-        enabled: true,
-        callbacks: {
-          label: (tooltipItem: { label: string; raw: unknown }) => {
-            const label = tooltipItem.label || "";
-            const value =
-              typeof tooltipItem.raw === "number" ? tooltipItem.raw : 0;
-            return `${label}: ${value.toFixed(0)}%`;
-          },
-        },
-      },
-      legend: {
-        display: false,
-      },
-    },
-    maintainAspectRatio: true,
-    responsive: true,
-  };
+  const spentPercentage = Math.min((totalSpent / budget) * 100, 100);
+  const remainingPercentage = 100 - spentPercentage;
+
+  const data = [
+    { name: "Spent", value: spentPercentage },
+    { name: "Remaining", value: remainingPercentage },
+  ];
+
+  const COLORS = ["#adc1c4", "#e7e4de"];
+
+  if (!isClient) {
+    return <></>;
+  }
 
   return (
-    <div className="flex flex-col items-end w-24">
-      <div className="flex items-center mb-1 text-xs">
-        <span className="mr-1">${spent.toFixed(0)}</span>
-        {isIncome ? (
-          <TrendingUp className="w-3 h-3 text-green-600" />
-        ) : percentage > 75 ? (
-          <TrendingDown className="w-3 h-3 text-red-600" />
-        ) : (
-          <TrendingUp className="w-3 h-3 text-blue-600" />
-        )}
-      </div>
-
-      <div className="h-12 w-12">
-        <Doughnut data={chartData} options={options} />
-      </div>
-
-      <div className="text-xs text-gray-500 mt-1 text-center w-full">
-        {percentage.toFixed(0)}% of budget
+    <div className="relative w-12 h-12">
+      <PieChart width={48} height={48}>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          innerRadius={16}
+          outerRadius={24}
+          startAngle={90}
+          endAngle={-270}
+          dataKey="value"
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+          ))}
+        </Pie>
+      </PieChart>
+      <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold">
+        {Math.round(spentPercentage)}%
       </div>
     </div>
   );
