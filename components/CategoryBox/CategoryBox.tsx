@@ -26,28 +26,38 @@ const mockBudgetData: { [key: string]: number } = {
 };
 
 const categoryGradients: { [key: string]: string } = {
-  INCOME: "bg-gradient-to-br from-[#CBE4DE] to-green-200",
-  "TRANSFER IN": "bg-gradient-to-br from-[#CBE4DE] to-emerald-200",
-  "TRANSFER OUT": "bg-gradient-to-br from-[#CBE4DE] to-red-200",
-  "LOAN PAYMENTS": "bg-gradient-to-br from-[#CBE4DE] to-emerald-200",
-  "BANK FEES": "bg-gradient-to-br from-[#CBE4DE] to-gray-200",
-  ENTERTAINMENT: "bg-gradient-to-br from-[#CBE4DE] to-green-200",
-  "FOOD AND DRINK": "bg-gradient-to-br from-[#CBE4DE] to-blue-200",
-  "GENERAL MERCHANDISE": "bg-gradient-to-br from-[#CBE4DE] to-indigo-200",
-  "HOME IMPROVEMENT": "bg-gradient-to-br from-[#CBE4DE] to-blue-200",
-  MEDICAL: "bg-gradient-to-br from-[#CBE4DE] to-red-200",
-  "PERSONAL CARE": "bg-gradient-to-br from-[#CBE4DE] to-purple-200",
-  "GENERAL SERVICES": "bg-gradient-to-br from-[#CBE4DE] to-cyan-200",
-  "GOVERNMENT AND NON PROFIT": "bg-gradient-to-br from-[#CBE4DE] to-gray-200",
-  TRANSPORTATION: "bg-gradient-to-br from-[#CBE4DE] to-sky-200",
-  TRAVEL: "bg-gradient-to-br from-[#CBE4DE] to-violet-200",
-  "RENT AND UTILITIES": "bg-gradient-to-br from-[#CBE4DE] to-blue-200",
+  INCOME:
+    "bg-gradient-to-br from-[#c7e6d2] from-10% via-[#c7e6d2] via-40% to-green-100 to-90%",
+  "LOAN PAYMENTS":
+    "bg-gradient-to-br from-stone-200 from-10% via-stone-200 via-40% to-stone-100 to-90%",
+  "BANK FEES":
+    "bg-gradient-to-br from-stone-200 from-10% via-stone-200 via-40% to-stone-100 to-90%",
+  ENTERTAINMENT:
+    "bg-gradient-to-br from-[#c7e6d2] from-10% via-[#c7e6d2] via-40% to-green-100 to-90%",
+  "FOOD AND DRINK":
+    "bg-gradient-to-br from-[#f4dcc0] from-10% via-[#f4dcc0] via-40% to-orange-100 to-90%",
+  "GENERAL MERCHANDISE":
+    "bg-gradient-to-br from-[#f4e0e4] from-10% via-[#f4e0e4] via-40% to-red-100 to-90%",
+  "HOME IMPROVEMENT": "bg-blue-100",
+  MEDICAL: "bg-red-100",
+  "PERSONAL CARE":
+    "bg-gradient-to-br from-purple-200 from-10% via-purple-200 via-40% to-purple-100 to-90%",
+  "GENERAL SERVICES":
+    "bg-gradient-to-br from-cyan-200 from-10% via-cyan-200 via-40% to-cyan-100 to-90%",
+  "GOVERNMENT AND NON PROFIT":
+    "bg-gradient-to-br from-stone-200 from-10% via-stone-200 via-40% to-stone-100 to-90%",
+  TRANSPORTATION:
+    "bg-gradient-to-br from-[#d3e3ed] from-10% via-[#d3e3ed] via-40% to-sky-100 to-90%",
+  TRAVEL:
+    "bg-gradient-to-br from-violet-200 from-10% via-violet-200 via-40% to-violet-100 to-90%",
+  "RENT AND UTILITIES":
+    "bg-gradient-to-br from-violet-200 from-10% via-violet-200 via-40% to-violet-100 to-90%",
 };
 
 const CategoryBox = ({ item }: CategoryBoxProps) => {
   const bgColor =
     categoryGradients[item.category.label.toUpperCase()] ||
-    "bg-gradient-to-br from-gray-200 to-gray-400";
+    "bg-gradient-to-br from-stone-200 from-10% via-stone-200 via-40% to-stone-100 to-90%";
   const budget = mockBudgetData[item.category.label.toUpperCase()] || 0;
   const spent = item.totalAmount;
   const percentage = budget > 0 ? (spent / budget) * 50 : 0;
@@ -77,7 +87,10 @@ const CategoryBox = ({ item }: CategoryBoxProps) => {
           </p>
         </div>
 
-        <Progress value={percentage} className="h-2 mb-2 [&>div]:bg-black/50" />
+        <Progress
+          value={percentage}
+          className="h-2 mb-2 [&>div]:bg-stone-800/20"
+        />
         <div className="flex justify-between w-full text-xs">
           <span>Spent: ${spent.toFixed(2)}</span>
           <span>Budget: ${budget.toFixed(2)}</span>

@@ -6,7 +6,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { getAccountStats } from "@/lib/actions/account.action";
 import { PlaidAccountItem } from "@/types";
-import { RightSidebar } from "@/components/RightSidebar";
+// import { RightSidebar } from "@/components/RightSidebar";
 import Link from "next/link";
 
 export default async function RootLayout({
@@ -58,7 +58,7 @@ export default async function RootLayout({
         </div>
         <div className="flex flex-col h-screen">{children}</div>
       </div>
-      <RightSidebar user={user} accounts={accounts} />
+      {/* <RightSidebar user={user} accounts={accounts} /> */}
     </main>
   );
 }

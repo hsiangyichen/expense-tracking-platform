@@ -3,42 +3,40 @@
 import { createAdminClient } from "@/lib/appwrite";
 import { Query } from "node-appwrite";
 import { cache } from "react";
-import { transactionCategories } from "@/constants";
-import {
-  PlaidTransaction,
-  CategoryResponse,
-  CategoryTransactions,
-} from "@/types";
+import { PlaidTransaction } from "@/types";
+import { getUserBudgets } from "@/lib/actions/budget.action";
 
-/* ---------- Get category statistics with optional date filtering --------- */
-export const getCategoryStats = cache(
-  async (
-    userId: string,
-    options?: {
-      startDate?: string;
-      endDate?: string;
-    }
-  ): Promise<CategoryResponse> => {
+export type CategorySummary = {
+  name: string;
+  totalAmount: number;
+  percentage: number;
+  budgetAmount: number;
+  count: number;
+  transactions: PlaidTransaction[];
+};
+
+export type CategorizedTransactions = {
+  categories: CategorySummary[];
+  totalSpent: number;
+};
+
+export const getCategorizedTransactions = cache(
+  async (userId: string): Promise<CategorizedTransactions> => {
     if (!userId) {
       throw new Error("userId is required");
     }
 
     const { databases } = await createAdminClient();
-    const queries = [Query.equal("userId", userId)];
 
-    // Add date range filters if provided
-    if (options?.startDate) {
-      queries.push(Query.greaterThanEqual("date", options.startDate));
-    }
-    if (options?.endDate) {
-      queries.push(Query.lessThanEqual("date", options.endDate));
-    }
-
-    // Get all transactions
     const transactionsResponse = await databases.listDocuments(
       process.env.APPWRITE_DATABASE_ID!,
       process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
-      queries
+      [
+        Query.equal("userId", userId),
+        Query.greaterThan("amount", 0),
+        Query.orderDesc("date"),
+        Query.limit(500),
+      ]
     );
 
     const transactions = transactionsResponse.documents.map((doc) => ({
@@ -59,102 +57,56 @@ export const getCategoryStats = cache(
       updatedAt: doc.updatedAt,
     })) as PlaidTransaction[];
 
-    const categoryStats = transactionCategories.map((category) => {
-      const categoryTransactions = transactions.filter(
-        (t) => t.category[0] === category.value
-      );
+    const userBudgets = await getUserBudgets(userId);
 
-      const totalAmount = categoryTransactions.reduce(
-        (sum, t) => sum + t.amount,
-        0
-      );
+    const totalSpent = transactions.reduce((sum, t) => sum + t.amount, 0);
 
-      return {
-        category,
-        totalAmount,
-        transactionCount: categoryTransactions.length,
-        transactions: categoryTransactions,
-      };
-    });
+    const categoryMap = new Map<string, PlaidTransaction[]>();
 
-    const totalIncome = categoryStats
-      .filter((stat) => stat.category.value === "INCOME")
-      .reduce((sum, stat) => sum + stat.totalAmount, 0);
+    for (const transaction of transactions) {
+      const primaryCategory =
+        transaction.category.length > 0
+          ? transaction.category[0]
+          : "Uncategorized";
 
-    const totalSpent = categoryStats
-      .filter(
-        (stat) =>
-          stat.category.value !== "INCOME" &&
-          stat.category.value !== "TRANSFER_IN"
-      )
-      .reduce((sum, stat) => sum + stat.totalAmount, 0);
+      if (!categoryMap.has(primaryCategory)) {
+        categoryMap.set(primaryCategory, []);
+      }
 
-    return {
-      categoryStats,
-      totalSpent,
-      totalIncome,
-    };
-  }
-);
-
-/* ------- Gets transactions grouped and sorted by category and count ------ */
-export const getCategorizedTransactions = cache(
-  async (userId: string): Promise<CategoryTransactions[]> => {
-    if (!userId) {
-      throw new Error("userId is required");
+      categoryMap.get(primaryCategory)!.push(transaction);
     }
 
-    const { databases } = await createAdminClient();
+    const categories: CategorySummary[] = Array.from(categoryMap.entries())
+      .map(([name, categoryTransactions]) => {
+        const totalAmount = categoryTransactions.reduce(
+          (sum, t) => sum + t.amount,
+          0
+        );
 
-    // Get all transactions
-    const response = await databases.listDocuments(
-      process.env.APPWRITE_DATABASE_ID!,
-      process.env.APPWRITE_TRANSACTION_COLLECTION_ID!,
-      [Query.equal("userId", userId)]
-    );
+        const normalizedName = name.toUpperCase().replace(/\s+/g, "_");
+        const budget = userBudgets.find(
+          (b) => b.category.toUpperCase() === normalizedName
+        );
+        const budgetAmount = budget?.amount || 0;
 
-    // Map and organize transactions by category
-    const categorizedTransactions = transactionCategories.map((category) => {
-      const categoryTransactions = response.documents
-        .filter((doc) => doc.category?.[0] === category.value)
-        .map((doc) => ({
-          id: doc.$id,
-          userId: doc.userId,
-          accountId: doc.accountId,
-          itemId: doc.itemId,
-          transactionId: doc.transactionId,
-          pending: doc.pending || false,
-          paymentChannel: doc.paymentChannel || "",
-          image: doc.image,
-          name: doc.name,
-          amount: doc.amount || 0,
-          date: doc.date,
-          category: Array.isArray(doc.category) ? doc.category : [],
-          merchantName: doc.merchantName,
-          createdAt: doc.createdAt,
-          updatedAt: doc.updatedAt,
-        }))
-        .sort((a, b) => {
-          const dateA = new Date(a.date).getTime();
-          const dateB = new Date(b.date).getTime();
-          return dateB - dateA;
-        });
+        // Calculate percentage of budget - if budget exists
+        const percentage =
+          budgetAmount > 0 ? (totalAmount / budgetAmount) * 100 : 0;
 
-      const totalAmount = categoryTransactions.reduce(
-        (sum, transaction) => sum + transaction.amount,
-        0
-      );
+        return {
+          name,
+          totalAmount,
+          percentage,
+          budgetAmount,
+          count: categoryTransactions.length,
+          transactions: categoryTransactions,
+        };
+      })
+      .sort((a, b) => b.totalAmount - a.totalAmount);
 
-      return {
-        category,
-        transactions: categoryTransactions,
-        totalAmount,
-        transactionCount: categoryTransactions.length,
-      };
-    });
-
-    return categorizedTransactions.sort(
-      (a, b) => b.transactionCount - a.transactionCount
-    );
+    return {
+      categories,
+      totalSpent,
+    };
   }
 );
