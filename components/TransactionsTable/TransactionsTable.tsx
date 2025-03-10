@@ -61,14 +61,12 @@ const TransactionsTable = ({
   const isHistory = type === "history";
 
   return (
-    <div
-      className={`flex flex-col ${
-        isHistory ? "h-[calc(100vh-20rem)]" : ""
-      } overflow-hidden`}
-    >
+    <div className={`flex flex-col overflow-hidden`}>
       <div className="flex-1 overflow-auto">
         <Table>
-          <TableCaption className="pt-1">Your recent transactions</TableCaption>
+          <TableCaption className="hidden">
+            Your recent transactions
+          </TableCaption>
           <TableHeader>
             <TableRow className="border-transparent">
               <TableHead className="px-2 sticky top-0 bg-white">

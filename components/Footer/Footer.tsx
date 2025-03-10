@@ -7,7 +7,7 @@ import { LogOut } from "lucide-react";
 
 const Footer = ({ user }: FooterProps) => {
   return (
-    <footer className="flex flex-row md:flex-col cursor-pointer xl:flex-row items-center justify-center gap-2 py-6">
+    <footer className="flex flex-row md:flex-col cursor-pointer xl:flex-row items-center justify-center gap-2 py-3">
       <div className="flex size-7 rounded-full bg-neutral-50 items-center justify-center">
         <UserButton />
       </div>
