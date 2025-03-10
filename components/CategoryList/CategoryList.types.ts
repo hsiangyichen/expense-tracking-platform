@@ -1,12 +1,5 @@
-import { PlaidTransaction } from "@/types";
+import { CategorizedTransactions } from "@/types";
 
 export interface CategoryListProps {
-  categorizedTransactions: {
-    category: {
-      label: string;
-      value: string;
-    };
-    transactions: PlaidTransaction[];
-    totalAmount: number;
-  }[];
+  categorizedTransactions: CategorizedTransactions;
 }

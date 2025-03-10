@@ -25,27 +25,21 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node) &&
-        isOpen
-      ) {
-        closeSidebar();
-      }
-    };
-
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isOpen) {
         closeSidebar();
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
     document.addEventListener("keydown", handleEscKey);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscKey);
       document.body.style.overflow = "unset";
     };
@@ -60,24 +54,27 @@ const MobileSidebar = ({ user }: MobileSidebarProps) => {
       >
         <Menu />
       </button>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
-          aria-hidden="true"
-        />
-      )}
+
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        aria-hidden="true"
+        onClick={closeSidebar}
+      />
+
       <div
         ref={sidebarRef}
-        className={`fixed inset-y-0 left-0 z-50 w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 left-0 z-50 w-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isOpen ? "-translate-x-0" : "translate-x-full"
         }`}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile Navigation"
       >
-        <div className="flex h-full flex-col justify-between">
+        <div className="flex h-full flex-col justify-between max-w-screen-sm mx-auto">
           <div>
-            <div className="flex items-center justify-between p-4">
+            <div className="flex items-center justify-between pt-3 pb-1 px-6">
               <Link href="/" className="cursor-pointer" onClick={closeSidebar}>
                 <Image
                   src="/icons/logo.svg"

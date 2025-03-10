@@ -51,21 +51,23 @@ const TransactionHistory = async ({ params, searchParams }: PageProps) => {
   }
 
   return (
-    <section className="flex flex-col w-full gap-5 lg:gap-8 px-5 sm:px-8 pb-10 lg:pt-12">
-      <header className="flex flex-col justify-between">
+    <section className="flex flex-col w-full md:h-screen gap-5 lg:gap-6 px-5 sm:px-8 pt-0 pb-5 sm:pb-8 md:py-6 lg:py-10">
+      <header className="flex flex-col justify-between flex-shrink-0">
         <HeaderBox
           type="title"
           title="Transaction History"
           subtext="View your transaction history for this account."
         />
       </header>
-      <HistoryRecentTransactions
-        accounts={accountStats.accounts}
-        currentAccount={currentAccount}
-        initialTransactions={transactionResponse.transactions}
-        totalPages={transactionResponse.totalPages}
-        currentPage={page}
-      />
+      <div className="flex-1 min-h-0">
+        <HistoryRecentTransactions
+          accounts={accountStats.accounts}
+          currentAccount={currentAccount}
+          initialTransactions={transactionResponse.transactions}
+          totalPages={transactionResponse.totalPages}
+          currentPage={page}
+        />
+      </div>
     </section>
   );
 };

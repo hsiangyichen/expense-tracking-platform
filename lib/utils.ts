@@ -34,6 +34,16 @@ export function formatAmount(
   }
 }
 
+/* ------------------ Formats a number as currency (USD) ----------------- */
+export const formatCurrency = (amount: number): string => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
+
 /* ----------------------- Formats URL query parameters --------------------- */
 interface UrlQueryParams {
   params: string;
@@ -75,8 +85,10 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams): string {
 
 /* ----------------------------- Format the text ---------------------------- */
 export function toPascalCase(str: string): string {
-  return str
-    .split(/[-_\s]+/)
+  const withSpaces = str.replace(/_/g, " ");
+
+  return withSpaces
+    .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }

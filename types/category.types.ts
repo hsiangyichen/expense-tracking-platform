@@ -1,26 +1,14 @@
 import { PlaidTransaction } from "./transaction.types";
 
-export interface CategoryStats {
-  category: {
-    label: string;
-    value: string;
-  };
+export type CategorySummary = {
+  name: string;
   totalAmount: number;
-  transactionCount: number;
+  percentage: number;
+  count: number;
   transactions: PlaidTransaction[];
-}
+};
 
-export interface CategoryResponse {
-  categoryStats: CategoryStats[];
+export type CategorizedTransactions = {
+  categories: CategorySummary[];
   totalSpent: number;
-  totalIncome: number;
-}
-
-export interface CategoryTransactions {
-  category: {
-    label: string;
-    value: string;
-  };
-  transactions: PlaidTransaction[];
-  totalAmount: number;
-}
+};

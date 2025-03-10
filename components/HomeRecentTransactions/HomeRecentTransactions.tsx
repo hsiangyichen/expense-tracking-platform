@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -44,8 +45,8 @@ const HomeRecentTransactions = ({
   };
 
   return (
-    <section className="flex-1 w-full flex flex-col lg:overflow-hidden">
-      <header className="w-full shrink-0 flex justify-between pb-2">
+    <section className="flex flex-col h-full">
+      <header className="w-full flex-shrink-0 flex justify-between pb-4">
         <h2 className="text-20 md:text-24 font-semibold text-gray-900">
           Recent transactions
         </h2>
@@ -58,12 +59,12 @@ const HomeRecentTransactions = ({
         </Link>
       </header>
       {accounts.length > 0 && (
-        <div className="lg:hidden">
+        <div className="md:hidden">
           <Select value={selectedAccountId} onValueChange={handleAccountChange}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full px-6">
               <SelectValue placeholder="Select an account" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="">
               {accounts.map((account) => (
                 <SelectItem key={account.id} value={account.accountId}>
                   {account.institutionName} - {account.name}
@@ -77,9 +78,9 @@ const HomeRecentTransactions = ({
         <Tabs
           value={selectedAccountId}
           onValueChange={handleAccountChange}
-          className="xl:overflow-hidden h-full lg:flex-1 lg:flex lg:flex-col hidden"
+          className="hidden md:flex flex-col flex-1 min-h-0"
         >
-          <ScrollArea className="w-full shrink-0 h-12">
+          <ScrollArea className="w-full h-12 flex-shrink-0">
             <TabsList className="w-full inline-flex mb-0">
               {accounts.map((account) => (
                 <TabsTrigger
@@ -97,25 +98,28 @@ const HomeRecentTransactions = ({
             </TabsList>
             <ScrollBar orientation="horizontal" className="invisible" />
           </ScrollArea>
-
-          <TabsContent
-            value={currentTab}
-            className="h-full md:flex-1 md:overflow-y-auto md:no-scroll"
-          >
-            <TransactionsTable
-              transactions={transactions.filter(
-                (tx) => tx.accountId === currentTab
-              )}
-            />
-          </TabsContent>
+          <div className="flex-1 min-h-0 bg-white rounded-xl">
+            <TabsContent
+              value={currentTab}
+              className="h-full rounded-xl overflow-hidden pb-4"
+            >
+              <div className="h-full overflow-auto px-4">
+                <TransactionsTable
+                  transactions={transactions.filter(
+                    (tx) => tx.accountId === currentTab
+                  )}
+                  type="home"
+                />
+              </div>
+            </TabsContent>
+          </div>
         </Tabs>
       ) : (
-        <div className="py-5 lg:py-8">
+        <div className="py-5 md:py-8">
           <Notfound item="transactions" />
         </div>
       )}
-
-      <div className="mt-4 lg:hidden ">
+      <div className="bg-white p-4 pt-2 pb-0 md:hidden">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
             (tx) => tx.accountId === account.accountId
@@ -124,7 +128,10 @@ const HomeRecentTransactions = ({
           return (
             selectedAccountId === account.accountId && (
               <div key={account.id} className="space-y-4">
-                <TransactionsTable transactions={accountTransactions} />
+                <TransactionsTable
+                  transactions={accountTransactions}
+                  type="home"
+                />
               </div>
             )
           );

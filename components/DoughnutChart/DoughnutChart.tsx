@@ -10,7 +10,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
   const dataValues = accounts.map((account) => account.balanceCurrent);
   const dataLabels = accounts.map(
-    (account) => `${account.institutionName} - ${account.name}`
+    (account) => `${account.subtype} - ${account.mask}`
   );
 
   const colors = accounts.map(
@@ -20,7 +20,7 @@ const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
   const data = {
     datasets: [
       {
-        label: "Bank Accounts",
+        label: "Balance",
         data: dataValues,
         backgroundColor: colors,
       },
@@ -42,7 +42,27 @@ const DoughnutChart = ({ accounts }: DoughnutChartProps) => {
   return (
     <Doughnut
       data={accounts.length > 0 ? data : fallbackData}
-      options={{ cutout: "60%", plugins: { legend: { display: false } } }}
+      options={{
+        cutout: "60%",
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            titleFont: {
+              size: 11,
+            },
+            bodyFont: {
+              size: 11,
+            },
+            callbacks: {
+              label: function (context) {
+                const label = context.dataset.label || "";
+                const value = context.parsed;
+                return ` ${label}: $${value}`;
+              },
+            },
+          },
+        },
+      }}
     />
   );
 };

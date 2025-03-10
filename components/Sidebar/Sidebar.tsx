@@ -39,11 +39,11 @@ const Sidebar = ({ user }: SidebarProps) => {
   });
 
   return (
-    <section className="sticky z-50 left-0 top-0 flex h-screen max-w-full flex-col justify-between border-r border-gray-200 bg-white pt-8 text-white max-md:hidden sm:p-4 xl:p-6 ">
-      <nav className="flex flex-col gap-4">
+    <section className="sticky z-50 left-0 top-0 flex h-screen max-w-full flex-col justify-between border-r border-gray-200 bg-white text-white max-md:hidden py-2 sm:px-4 xl:px-5">
+      <nav className="flex flex-col">
         <Link
           href="/"
-          className="flex cursor-pointer items-center gap-2 relative -top-1"
+          className="flex cursor-pointer items-center relative -top-1"
         >
           <Image
             src="/icons/logo.svg"
@@ -61,14 +61,14 @@ const Sidebar = ({ user }: SidebarProps) => {
               href={link.route}
               key={link.label}
               className={cn(
-                "flex gap-3 items-center min-w-max py-1 md:py-3 max-xl:py-4 rounded-lg justify-center xl:justify-start border-b-[1.5px] border-transparent transition-all duration-200",
+                "flex gap-3 items-center min-w-max xl:pl-1 pt-4 md:pt-5 pb-2 md:pb-4 max-xl:pb-6 rounded-lg justify-center xl:justify-start border-b-[1.5px] border-transparent transition-all duration-200",
                 {
                   "border-stone-400": isActive,
                   "hover:border-stone-200 hover:shadow-sm": !isActive,
                 }
               )}
             >
-              <div className="relative size-6">
+              <div className="relative size-5">
                 <link.icon
                   strokeWidth={1.75}
                   className={cn(

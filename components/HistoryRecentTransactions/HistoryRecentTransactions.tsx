@@ -16,45 +16,61 @@ const HistoryRecentTransactions = ({
 }: HistoryRecentTransactionsProps) => {
   const router = useRouter();
 
-  /* ---------------------------- Handle tab change --------------------------- */
   const handleTabChange = (accountId: string) => {
     router.push(`/transaction-history/${accountId}`);
   };
 
   return (
-    <section className="flex w-full flex-col">
+    <section className="flex flex-col h-full">
       <Tabs
         value={currentAccount.accountId}
         onValueChange={handleTabChange}
-        className="w-full"
+        className="w-full flex flex-col flex-1 min-h-0"
       >
-        <ScrollArea className="w-full whitespace-nowrap">
-          <TabsList className="mb-2 flex w-full flex-nowrap">
-            {accounts.map((account) => (
-              <TabsTrigger
-                key={account.id}
-                value={account.accountId}
-                className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
-              >
-                <AccountTabItem
-                  account={account}
-                  isActive={currentAccount.accountId === account.accountId}
-                  urlStrategy="path"
-                  baseUrl="/transaction-history"
+        <div className="tabs-container flex-shrink-0">
+          <ScrollArea className="w-full h-12">
+            <TabsList className="w-full inline-flex mb-0">
+              {accounts.map((account) => (
+                <TabsTrigger
+                  key={account.id}
+                  value={account.accountId}
+                  className="p-0 data-[state=active]:shadow-none data-[state=active]:bg-transparent"
+                >
+                  <AccountTabItem
+                    account={account}
+                    isActive={currentAccount.accountId === account.accountId}
+                    urlStrategy="path"
+                    baseUrl="/transaction-history"
+                  />
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            <ScrollBar orientation="horizontal" className="invisible" />
+          </ScrollArea>
+        </div>
+        <div className="flex-1 min-h-0 rounded-xl">
+          <TabsContent
+            value={currentAccount.accountId}
+            className="h-full flex flex-col rounded-xl overflow-hidden mt-0"
+          >
+            <div className="account-info-container flex-shrink-0 mb-4">
+              <AccountInfo
+                account={currentAccount}
+                accountId={currentAccount.accountId}
+                type="full"
+              />
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-hidden bg-white">
+              <div className="h-full overflow-auto px-4 py-2 rounded-xl shadow-sm">
+                <TransactionsTable
+                  transactions={initialTransactions}
+                  type="history"
                 />
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          <ScrollBar orientation="horizontal" className="invisible" />
-        </ScrollArea>
-        <TabsContent value={currentAccount.accountId} className="space-y-4">
-          <AccountInfo
-            account={currentAccount}
-            accountId={currentAccount.accountId}
-            type="full"
-          />
-          <TransactionsTable transactions={initialTransactions} />
-        </TabsContent>
+              </div>
+            </div>
+          </TabsContent>
+        </div>
       </Tabs>
     </section>
   );
