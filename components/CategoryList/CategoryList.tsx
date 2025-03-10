@@ -237,13 +237,13 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      <Card className="border-stone-200 shadow-sm mb-6">
-        <CardHeader>
+      <Card className="border-stone-200 shadow-sm flex-1 flex flex-col min-h-0 mb-6">
+        <CardHeader className="flex-shrink-0">
           <CardTitle>
             Total Spent: {formatCurrency(categorizedTransactions.totalSpent)}
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-48 mb-6 overflow-auto">
+        <CardContent className="flex-1 overflow-auto">
           <div>
             {topCategories.map((category) => {
               const style = getCategoryStyle(category.name);
@@ -287,13 +287,11 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
           </div>
         </CardContent>
       </Card>
-      <Card className="border-stone-200 shadow-sm flex-1 flex flex-col min-h-0">
+      <Card className="border-stone-200 shadow-sm">
         <CardHeader className="flex-shrink-0">
-          <CardTitle className="self-center md:self-start">
-            Monthly Spending for Top 5 Categories
-          </CardTitle>
+          <CardTitle>Monthly Spending for Top 5 Categories</CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 min-h-0">
+        <CardContent className="h-80">
           <div className="h-full w-full">
             <Bar data={chartData} options={chartOptions} />
           </div>

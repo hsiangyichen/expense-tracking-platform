@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AccountInfo } from "@/components/AccountInfo";
 import { AccountTabItem } from "@/components/AccountTabItem";
@@ -15,45 +15,21 @@ const HistoryRecentTransactions = ({
   initialTransactions,
 }: HistoryRecentTransactionsProps) => {
   const router = useRouter();
-  const [tableHeight, setTableHeight] = useState("calc(100vh - 300px)");
 
   const handleTabChange = (accountId: string) => {
     router.push(`/transaction-history/${accountId}`);
   };
 
-  useEffect(() => {
-    const calculateHeight = () => {
-      const header = document.querySelector("header");
-      const tabs = document.querySelector(".tabs-container");
-      const accountInfo = document.querySelector(".account-info-container");
-
-      let offsetHeight = 180;
-
-      if (header) offsetHeight += header.clientHeight;
-      if (tabs) offsetHeight += tabs.clientHeight;
-      if (accountInfo) offsetHeight += accountInfo.clientHeight;
-
-      setTableHeight(`calc(100vh - ${offsetHeight}px)`);
-    };
-
-    calculateHeight();
-    window.addEventListener("resize", calculateHeight);
-
-    return () => {
-      window.removeEventListener("resize", calculateHeight);
-    };
-  }, []);
-
   return (
-    <section className="flex w-full flex-col h-full">
+    <section className="flex flex-col h-full">
       <Tabs
         value={currentAccount.accountId}
         onValueChange={handleTabChange}
-        className="w-full flex flex-col h-full"
+        className="w-full flex flex-col flex-1 min-h-0"
       >
-        <div className="tabs-container">
-          <ScrollArea className="w-full whitespace-nowrap">
-            <TabsList className="mb-2 flex w-full flex-nowrap">
+        <div className="tabs-container flex-shrink-0">
+          <ScrollArea className="w-full h-12">
+            <TabsList className="w-full inline-flex mb-0">
               {accounts.map((account) => (
                 <TabsTrigger
                   key={account.id}
@@ -72,29 +48,29 @@ const HistoryRecentTransactions = ({
             <ScrollBar orientation="horizontal" className="invisible" />
           </ScrollArea>
         </div>
-
-        <TabsContent
-          value={currentAccount.accountId}
-          className="space-y-4 flex-1 flex flex-col"
-        >
-          <div className="account-info-container">
-            <AccountInfo
-              account={currentAccount}
-              accountId={currentAccount.accountId}
-              type="full"
-            />
-          </div>
-
-          <div
-            className="flex-1 overflow-hidden"
-            style={{ height: tableHeight, minHeight: "300px" }}
+        <div className="flex-1 min-h-0 rounded-xl">
+          <TabsContent
+            value={currentAccount.accountId}
+            className="h-full flex flex-col rounded-xl overflow-hidden mt-0"
           >
-            <TransactionsTable
-              transactions={initialTransactions}
-              type="history"
-            />
-          </div>
-        </TabsContent>
+            <div className="account-info-container flex-shrink-0 mb-4">
+              <AccountInfo
+                account={currentAccount}
+                accountId={currentAccount.accountId}
+                type="full"
+              />
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-hidden bg-white">
+              <div className="h-full overflow-auto px-4 py-2 rounded-xl shadow-sm">
+                <TransactionsTable
+                  transactions={initialTransactions}
+                  type="history"
+                />
+              </div>
+            </div>
+          </TabsContent>
+        </div>
       </Tabs>
     </section>
   );

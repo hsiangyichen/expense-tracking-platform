@@ -70,7 +70,7 @@ const PlaidLink = ({ user, type }: PlaidLinkProps) => {
         onClick={() => open()}
         disabled={!ready || !token || loading}
         className={cn(
-          "flex gap-3 px-6 md:px-0 items-center min-w-max py-3 md:max-xl:justify-center xl:justify-start w-full text-stone-800",
+          "flex gap-3 items-center min-w-max px-6 py-4 xl:pl-1 pt-4 md:pt-5 md:max-xl:justify-center xl:justify-start w-full text-stone-800",
           {
             "opacity-50 cursor-not-allowed": !ready || !token || loading,
           },

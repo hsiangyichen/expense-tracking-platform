@@ -162,7 +162,7 @@ const CategoryPieChart = ({
         backgroundColor: [
           style.chartColor,
           overBudget > 0
-            ? "rgba(239, 68, 68, 0.8)" // Keep red for over budget
+            ? "#ef4444" // Keep red for over budget
             : "rgba(140, 140, 135, 0.7)", // Gray for remaining
         ],
         borderWidth: 1,
@@ -206,8 +206,8 @@ const CategoryPieChart = ({
     <>
       <div className="h-44 w-1/2 relative border-r-[1.5px] border-stone-200">
         <Pie data={chartData} options={chartOptions} />
-        <div className="absolute -top-8 inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-xl font-bold">
+        <div className="absolute -top-16 md:-top-8 inset-0 flex flex-col items-center justify-center text-center">
+          <span className="md:text-xl font-bold">
             {formatCurrency(totalSpent)}
           </span>
           <span className="text-xs text-muted-foreground">
@@ -224,8 +224,8 @@ const CategoryPieChart = ({
 
       {!noBudgetSet && (
         <>
-          <div className="w-1/2 pl-6">
-            <div className="flex justify-between text-xl font-bold">
+          <div className="w-1/2 pl-4 md:pl-6">
+            <div className="flex justify-between md:text-xl font-bold">
               <span>Budget:</span>
               <span>{formatCurrency(budget)}</span>
             </div>

@@ -15,7 +15,7 @@ const BudgetAndCategories = async () => {
   const categorizedTransactions = await getCategorizedTransactions(user?.id);
 
   return (
-    <section className="flex flex-col w-full h-screen gap-5 lg:gap-8 px-5 sm:px-8 pt-0 pb-5 sm:pb-8 md:py-6 lg:py-10">
+    <section className="flex flex-col w-full md:h-screen gap-5 lg:gap-6 px-5 sm:px-8 pt-0 pb-5 sm:pb-8 md:py-6 lg:py-10">
       <header className="flex flex-col justify-between flex-shrink-0">
         <HeaderBox
           type="title"
