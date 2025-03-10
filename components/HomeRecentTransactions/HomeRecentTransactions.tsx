@@ -97,7 +97,6 @@ const HomeRecentTransactions = ({
             </TabsList>
             <ScrollBar orientation="horizontal" className="invisible" />
           </ScrollArea>
-
           <TabsContent
             value={currentTab}
             className="h-full md:overflow-y-auto bg-blue-100 px-6"
