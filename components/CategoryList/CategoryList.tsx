@@ -131,7 +131,6 @@ const categoryStyles = {
   },
 };
 
-// Default style for categories not in our mapping
 const defaultCategoryStyle = {
   bgClass: "bg-gray-100",
   textClass: "text-gray-800",
@@ -140,13 +139,11 @@ const defaultCategoryStyle = {
 };
 
 const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
-  const topCategories = [...categorizedTransactions.categories]
-    .sort((a, b) => b.totalAmount - a.totalAmount)
-    .slice(0, 10);
+  const topCategories = [...categorizedTransactions.categories].sort(
+    (a, b) => b.totalAmount - a.totalAmount
+  );
 
-  // Get style for a category
   const getCategoryStyle = (name: string) => {
-    // Convert to uppercase and replace spaces with underscores for matching
     const normalizedName = name.toUpperCase().replace(/\s+/g, "_");
     return (
       categoryStyles[normalizedName as keyof typeof categoryStyles] ||
@@ -158,7 +155,7 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
     name.toLowerCase().replace(/\s+/g, "-");
 
   const prepareMonthlyCategoryData = () => {
-    const topChartCategories = topCategories.slice(0, 5);
+    const topChartCategories = [...categorizedTransactions.categories];
     const allTransactions = topChartCategories.flatMap((cat) =>
       cat.transactions.map((t) => ({ ...t, categoryName: cat.name }))
     );
@@ -239,14 +236,14 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
   };
 
   return (
-    <div className="flex flex-col">
-      <Card className="border-stone-200 shadow-sm mb-8">
+    <div className="flex flex-col h-full">
+      <Card className="border-stone-200 shadow-sm mb-6">
         <CardHeader>
-          <CardTitle className="text-2xl tracking-normal font-bold">
+          <CardTitle>
             Total Spent: {formatCurrency(categorizedTransactions.totalSpent)}
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-48 mb-6 overflow-auto">
           <div>
             {topCategories.map((category) => {
               const style = getCategoryStyle(category.name);
@@ -290,14 +287,14 @@ const CategoryList = ({ categorizedTransactions }: CategoryListProps) => {
           </div>
         </CardContent>
       </Card>
-      <Card className="border-stone-200 shadow-sm flex flex-col">
-        <CardHeader>
+      <Card className="border-stone-200 shadow-sm flex-1 flex flex-col min-h-0">
+        <CardHeader className="flex-shrink-0">
           <CardTitle className="self-center md:self-start">
             Monthly Spending for Top 5 Categories
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col">
-          <div className="w-full h-80">
+        <CardContent className="flex-1 min-h-0">
+          <div className="h-full w-full">
             <Bar data={chartData} options={chartOptions} />
           </div>
         </CardContent>

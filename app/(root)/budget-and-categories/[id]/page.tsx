@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { getCategorizedTransactions } from "@/lib/actions/category.action";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, toPascalCase } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -46,8 +46,10 @@ const BudgetAndCategories = async ({ params }: PageProps) => {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
+  const formattedCategoryName = toPascalCase(categoryData.name);
+
   return (
-    <section className="flex flex-col w-full gap-5 lg:gap-8 px-5 sm:px-8 pb-10 lg:pt-12">
+    <section className="flex flex-col w-full h-screen gap-5 lg:gap-8 px-5 sm:px-8 pt-0 pb-5 sm:pb-8 md:py-6 lg:py-10">
       <Link
         href="/budget-and-categories"
         className="flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -59,19 +61,19 @@ const BudgetAndCategories = async ({ params }: PageProps) => {
       <header className="flex flex-col justify-between">
         <HeaderBox
           type="title"
-          title={`${categoryName} Transactions`}
-          subtext={`Viewing all transactions in the ${categoryName} category.`}
+          title={`${formattedCategoryName} Transactions`}
+          subtext={`Viewing all transactions in the ${formattedCategoryName} category.`}
         />
       </header>
 
-      <div className="flex">
+      <div className="flex-shrink-0">
         <Card className="border-stone-200 shadow-sm w-full">
           <div className="flex w-full justify-between items-center">
             <CardHeader>
               <CardTitle>Budget Overview</CardTitle>
             </CardHeader>
             <BudgetModal
-              categoryName={categoryName}
+              categoryName={categoryData.name}
               currentBudget={categoryData.budgetAmount}
             />
           </div>
@@ -79,17 +81,19 @@ const BudgetAndCategories = async ({ params }: PageProps) => {
             <CategoryPieChart
               totalSpent={categoryData.totalAmount}
               budget={categoryData.budgetAmount}
+              categoryName={categoryData.name}
             />
           </CardContent>
         </Card>
       </div>
-      <Card className="border-stone-200 shadow-sm">
-        <CardHeader>
+
+      <Card className="border-stone-200 shadow-sm flex-1 min-h-0 flex flex-col">
+        <CardHeader className="flex-shrink-0">
           <CardTitle>All Transactions</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-1 overflow-auto m-6 mt-0 p-0">
           <Table>
-            <TableHeader>
+            <TableHeader className="sticky top-0 z-10">
               <TableRow>
                 <TableHead>Date</TableHead>
                 <TableHead>Name</TableHead>

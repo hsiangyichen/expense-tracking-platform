@@ -85,8 +85,10 @@ export function formUrlQuery({ params, key, value }: UrlQueryParams): string {
 
 /* ----------------------------- Format the text ---------------------------- */
 export function toPascalCase(str: string): string {
-  return str
-    .split(/[-_\s]+/)
+  const withSpaces = str.replace(/_/g, " ");
+
+  return withSpaces
+    .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }

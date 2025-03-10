@@ -100,12 +100,13 @@ const HomeRecentTransactions = ({
 
           <TabsContent
             value={currentTab}
-            className="h-full md:flex-1 md:overflow-y-auto md:no-scroll"
+            className="h-full md:overflow-y-auto bg-blue-100 px-6"
           >
             <TransactionsTable
               transactions={transactions.filter(
                 (tx) => tx.accountId === currentTab
               )}
+              type="home"
             />
           </TabsContent>
         </Tabs>
@@ -115,7 +116,7 @@ const HomeRecentTransactions = ({
         </div>
       )}
 
-      <div className="mt-4 lg:hidden ">
+      <div className="mt-4 lg:hidden">
         {accounts.map((account) => {
           const accountTransactions = transactions.filter(
             (tx) => tx.accountId === account.accountId
@@ -124,7 +125,10 @@ const HomeRecentTransactions = ({
           return (
             selectedAccountId === account.accountId && (
               <div key={account.id} className="space-y-4">
-                <TransactionsTable transactions={accountTransactions} />
+                <TransactionsTable
+                  transactions={accountTransactions}
+                  type="home"
+                />
               </div>
             )
           );
