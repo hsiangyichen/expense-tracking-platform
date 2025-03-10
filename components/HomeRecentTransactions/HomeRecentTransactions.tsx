@@ -60,12 +60,12 @@ const HomeRecentTransactions = ({
             </TabsList>
             <ScrollBar orientation="horizontal" className="invisible" />
           </ScrollArea>
-          <div className="flex-1 min-h-0 rounded-xl">
+          <div className="flex-1 min-h-0 bg-white rounded-xl">
             <TabsContent
               value={currentTab}
-              className="h-full mt-0 rounded-xl overflow-hidden"
+              className="h-full mt-0 rounded-xl overflow-hidden pb-4"
             >
-              <div className="h-full overflow-auto">
+              <div className="h-full overflow-auto px-4">
                 <TransactionsTable
                   transactions={transactions.filter(
                     (tx) => tx.accountId === currentTab
