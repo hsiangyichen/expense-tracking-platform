@@ -40,7 +40,7 @@ const HomeRecentTransactions = ({
         <Tabs
           value={selectedAccountId}
           onValueChange={handleAccountChange}
-          className="h-full"
+          className="flex flex-col h-full"
         >
           <ScrollArea className="w-full h-12 flex-shrink-0">
             <TabsList className="w-full inline-flex mb-0">
