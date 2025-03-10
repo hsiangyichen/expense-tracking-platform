@@ -48,14 +48,19 @@ const Home = async () => {
 
   return (
     <section className="flex flex-col w-full h-screen gap-5 lg:gap-8 px-5 sm:px-8 pt-0 pb-5 sm:pb-8 md:py-6 lg:py-10">
-      <header className="flex flex-col justify-between">
+      <header className="flex flex-col justify-between flex-shrink-0">
         <HeroBox
           accounts={accounts}
           totalAccounts={totalAccounts}
           totalCurrentBalance={totalCurrentBalance}
         />
       </header>
-      <HomeRecentTransactions accounts={accounts} transactions={transactions} />
+      <div className="flex-1 min-h-0">
+        <HomeRecentTransactions
+          accounts={accounts}
+          transactions={transactions}
+        />
+      </div>
     </section>
   );
 };
