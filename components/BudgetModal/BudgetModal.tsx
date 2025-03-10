@@ -4,6 +4,8 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { updateBudget } from "@/lib/actions/budget.action";
 import { BudgetModalProps } from "./BudgetModal.types";
+import { PencilLine, Plus } from "lucide-react";
+import { toPascalCase } from "@/lib/utils";
 
 const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +14,8 @@ const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
   const [error, setError] = useState("");
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
+  const formattedCategoryName = toPascalCase(categoryName);
 
-  // Reset budget input when modal opens
   useEffect(() => {
     if (isOpen) {
       setBudget(currentBudget.toString());
@@ -21,7 +23,6 @@ const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
     }
   }, [isOpen, currentBudget]);
 
-  // Close modal on escape key press
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -33,7 +34,6 @@ const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen]);
 
-  // Close modal when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -84,24 +84,26 @@ const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
     <Fragment>
       <button
         onClick={openModal}
-        className="mr-6 px-2.5 py-1.5 text-sm font-medium bg-stone-300 text-stone-800 hover:bg-stone-800 hover:text-white rounded-[6px] shadow-sm focus:outline-none transition-colors duration-100"
+        className="text-14 flex items-center gap-2 font-medium text-stone-500 hover:text-stone-800 mr-6"
       >
-        {currentBudget > 0 ? "Edit Budget" : "Set Budget"}
+        <span>{currentBudget > 0 ? "Edit Budget" : "Set Budget"}</span>
+        {currentBudget > 0 ? (
+          <PencilLine className="w-3.5 h-3.5" />
+        ) : (
+          <Plus className="w-3.5 h-3.5" />
+        )}
       </button>
 
-      {/* Modal Overlay */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          {/* Modal Content */}
           <div
             ref={modalRef}
             className="bg-white rounded-[6px] shadow-xl w-full max-w-md mx-4 overflow-hidden"
           >
-            {/* Modal Header */}
             <div className="bg-stone-800 text-white px-6 py-4 flex justify-between items-center">
               <h3 className="font-semibold text-lg">
                 {currentBudget > 0 ? "Edit Budget" : "Set Budget"} -{" "}
-                {categoryName}
+                {formattedCategoryName}
               </h3>
               <button
                 onClick={closeModal}
@@ -122,8 +124,6 @@ const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
                 </svg>
               </button>
             </div>
-
-            {/* Modal Body */}
             <div className="px-6 py-4">
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -153,8 +153,6 @@ const BudgetModal = ({ categoryName, currentBudget }: BudgetModalProps) => {
                     <p className="mt-1 text-sm text-red-600">{error}</p>
                   )}
                 </div>
-
-                {/* Action Buttons */}
                 <div className="flex justify-end space-x-3 mt-6">
                   <button
                     type="button"

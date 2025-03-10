@@ -1,8 +1,6 @@
-import { UserDetails, PlaidAccountItem } from "@/types";
-
-export interface RightSidebarProps {
-  user: UserDetails;
-  accounts: PlaidAccountItem[];
-  // transactions: PlaidTransaction[];
-  // categorizedTransactions?: CategoryTransactions[];
+export interface SidebarPieChartProps {
+  categoryName: string;
+  totalAmount: number;
+  percentage: number;
+  count: number;
 }

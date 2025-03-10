@@ -50,67 +50,67 @@ export const colorPalette = ["#75aca8", "#b1d2c8", "#cbe4de", "#4c888b"];
 /* ------------------------------ Transaction Categories ----------------------------- */
 export const transactionCategories = [
   {
-    label: "INCOME",
+    label: "Income",
     value: "INCOME",
   },
   {
-    label: "TRANSFER IN",
+    label: "Transfer In",
     value: "TRANSFER_IN",
   },
   {
-    label: "TRANSFER OUT",
+    label: "Transfer Out",
     value: "TRANSFER_OUT",
   },
   {
-    label: "LOAN PAYMENTS",
+    label: "Loan Payments",
     value: "LOAN_PAYMENTS",
   },
   {
-    label: "BANK FEES",
+    label: "Bank Fees",
     value: "BANK_FEES",
   },
   {
-    label: "ENTERTAINMENT",
+    label: "Entertainment",
     value: "ENTERTAINMENT",
   },
   {
-    label: "FOOD AND DRINK",
+    label: "Food And Drink",
     value: "FOOD_AND_DRINK",
   },
   {
-    label: "GENERAL MERCHANDISE",
+    label: "General Merchandise",
     value: "GENERAL_MERCHANDISE",
   },
   {
-    label: "HOME IMPROVEMENT",
+    label: "Home Improvement",
     value: "HOME_IMPROVEMENT",
   },
   {
-    label: "MEDICAL",
+    label: "Medical",
     value: "MEDICAL",
   },
   {
-    label: "PERSONAL CARE",
+    label: "Personal Care",
     value: "PERSONAL_CARE",
   },
   {
-    label: "GENERAL SERVICES",
+    label: "General Services",
     value: "GENERAL_SERVICES",
   },
   {
-    label: "GOVERNMENT AND NON PROFIT",
+    label: "Government And Non Profit",
     value: "GOVERNMENT_AND_NON_PROFIT",
   },
   {
-    label: "TRANSPORTATION",
+    label: "Transportation",
     value: "TRANSPORTATION",
   },
   {
-    label: "TRAVEL",
+    label: "Travel",
     value: "TRAVEL",
   },
   {
-    label: "RENT AND UTILITIES",
+    label: "Rent And Utilities",
     value: "RENT_AND_UTILITIES",
   },
 ];

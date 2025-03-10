@@ -51,7 +51,7 @@ const TransactionHistory = async ({ params, searchParams }: PageProps) => {
   }
 
   return (
-    <section className="flex flex-col w-full gap-5 lg:gap-8 px-5 sm:px-8 pb-10 lg:pt-12">
+    <section className="flex flex-col w-full gap-5 lg:gap-8 px-5 sm:px-8 pt-0 pb-5 sm:pb-8 md:py-6 lg:py-10">
       <header className="flex flex-col justify-between">
         <HeaderBox
           type="title"
