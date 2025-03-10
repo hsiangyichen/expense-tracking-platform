@@ -5,9 +5,8 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import React from "react";
 import { redirect } from "next/navigation";
 import { getAccountStats } from "@/lib/actions/account.action";
-import { PlaidAccountItem, PlaidTransaction } from "@/types";
-import { getTransactionStats } from "@/lib/actions/transaction.action";
-import { RightSidebar } from "@/components/RightSidebar";
+import { PlaidAccountItem } from "@/types";
+// import { RightSidebar } from "@/components/RightSidebar";
 import Link from "next/link";
 
 export default async function RootLayout({
@@ -30,22 +29,11 @@ export default async function RootLayout({
   };
 
   let accounts: PlaidAccountItem[] = [];
-  let transactions: PlaidTransaction[] = [];
 
   try {
     /* ------------------------ Fetch account statistics ------------------------ */
     const accountStats = await getAccountStats(user.id);
     accounts = accountStats.accounts;
-
-    /* ---------------------- Fetch transaction statistics ---------------------- */
-    if (accounts.length > 0) {
-      try {
-        const transactionStats = await getTransactionStats(user.id);
-        transactions = transactionStats.transactions;
-      } catch (txError) {
-        console.error("Error fetching transaction stats:", txError);
-      }
-    }
   } catch (error) {
     console.error("Error fetching account stats:", error);
   }
@@ -70,11 +58,7 @@ export default async function RootLayout({
         </div>
         <div className="flex flex-col h-screen">{children}</div>
       </div>
-      <RightSidebar
-        user={user}
-        transactions={transactions}
-        accounts={accounts}
-      />
+      {/* <RightSidebar user={user} accounts={accounts} /> */}
     </main>
   );
 }

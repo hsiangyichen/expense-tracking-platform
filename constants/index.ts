@@ -1,4 +1,23 @@
-import { Home, Receipt, PieChart } from "lucide-react";
+import {
+  Home,
+  Receipt,
+  PieChart,
+  DollarSign,
+  Wallet2,
+  Repeat,
+  ArrowUpRight,
+  Banknote,
+  Music,
+  Utensils,
+  ShoppingCart,
+  HeartPulse,
+  User,
+  Briefcase,
+  Landmark,
+  Car,
+  Plane,
+  Lightbulb,
+} from "lucide-react";
 
 /* ------------------------------ Sidebar Links ----------------------------- */
 export const sidebarLinks = [
@@ -6,6 +25,11 @@ export const sidebarLinks = [
     icon: Home,
     route: "/",
     label: "Home",
+  },
+  {
+    icon: Wallet2,
+    route: "/banks-and-cards",
+    label: "My Banks & Cards",
   },
   {
     icon: Receipt,
@@ -21,16 +45,7 @@ export const sidebarLinks = [
 ];
 
 /* ------------------------------ Color Palette ----------------------------- */
-export const colorPalette = [
-  "#FFE4E6",
-  "#FDA4AF",
-  "#F7CFCC",
-  "#F2C2CE",
-  "#D7C0DC",
-  "#F2D3DD",
-  "#EFD2ED",
-  "#F6BEBE",
-];
+export const colorPalette = ["#75aca8", "#b1d2c8", "#cbe4de", "#4c888b"];
 
 /* ------------------------------ Transaction Categories ----------------------------- */
 export const transactionCategories = [
@@ -95,6 +110,89 @@ export const transactionCategories = [
     value: "TRAVEL",
   },
   {
+    label: "RENT AND UTILITIES",
+    value: "RENT_AND_UTILITIES",
+  },
+];
+
+export const transactionCategoriesWithIcon = [
+  {
+    icon: DollarSign,
+    label: "INCOME",
+    value: "INCOME",
+  },
+  {
+    icon: Repeat,
+    label: "TRANSFER IN",
+    value: "TRANSFER_IN",
+  },
+  {
+    icon: ArrowUpRight,
+    label: "TRANSFER OUT",
+    value: "TRANSFER_OUT",
+  },
+  {
+    icon: Banknote,
+    label: "LOAN PAYMENTS",
+    value: "LOAN_PAYMENTS",
+  },
+  {
+    icon: Receipt,
+    label: "BANK FEES",
+    value: "BANK_FEES",
+  },
+  {
+    icon: Music,
+    label: "ENTERTAINMENT",
+    value: "ENTERTAINMENT",
+  },
+  {
+    icon: Utensils,
+    label: "FOOD AND DRINK",
+    value: "FOOD_AND_DRINK",
+  },
+  {
+    icon: ShoppingCart,
+    label: "GENERAL MERCHANDISE",
+    value: "GENERAL_MERCHANDISE",
+  },
+  {
+    icon: Home,
+    label: "HOME IMPROVEMENT",
+    value: "HOME_IMPROVEMENT",
+  },
+  {
+    icon: HeartPulse,
+    label: "MEDICAL",
+    value: "MEDICAL",
+  },
+  {
+    icon: User,
+    label: "PERSONAL CARE",
+    value: "PERSONAL_CARE",
+  },
+  {
+    icon: Briefcase,
+    label: "GENERAL SERVICES",
+    value: "GENERAL_SERVICES",
+  },
+  {
+    icon: Landmark,
+    label: "GOVERNMENT AND NON PROFIT",
+    value: "GOVERNMENT_AND_NON_PROFIT",
+  },
+  {
+    icon: Car,
+    label: "TRANSPORTATION",
+    value: "TRANSPORTATION",
+  },
+  {
+    icon: Plane,
+    label: "TRAVEL",
+    value: "TRAVEL",
+  },
+  {
+    icon: Lightbulb,
     label: "RENT AND UTILITIES",
     value: "RENT_AND_UTILITIES",
   },

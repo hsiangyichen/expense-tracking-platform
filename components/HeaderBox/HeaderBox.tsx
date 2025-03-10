@@ -16,7 +16,7 @@ const HeaderBox = async ({
       <h1 className="text-24 lg:text-30 font-semibold text-gray-900">
         {title}{" "}
         {type === "greeting" && (
-          <span className="bg-gradient-to-r from-indigo-400 to-rose-400 text-transparent bg-clip-text">
+          <span className="bg-gradient-to-r from-blue-700 to-teal-700 text-transparent bg-clip-text">
             {firstName}
           </span>
         )}
