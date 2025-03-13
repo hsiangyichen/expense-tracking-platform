@@ -39,7 +39,7 @@ const Sidebar = ({ user }: SidebarProps) => {
   });
 
   return (
-    <section className="sticky z-50 left-0 top-0 flex h-screen max-w-full flex-col justify-between border-r border-gray-200 bg-white text-white max-md:hidden py-2 sm:px-4 xl:px-5">
+    <section className="sticky z-50 left-0 top-0 flex h-screen max-w-full flex-col justify-between border-r border-gray-200 bg-white text-white max-md:hidden py-3 sm:px-4 xl:px-5">
       <nav className="flex flex-col">
         <Link
           href="/"
