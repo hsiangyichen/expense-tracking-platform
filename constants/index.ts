@@ -3,7 +3,7 @@ import {
   Receipt,
   PieChart,
   DollarSign,
-  Wallet2,
+  // Wallet2,
   Repeat,
   ArrowUpRight,
   Banknote,
@@ -26,11 +26,11 @@ export const sidebarLinks = [
     route: "/",
     label: "Home",
   },
-  {
-    icon: Wallet2,
-    route: "/banks-and-cards",
-    label: "My Banks & Cards",
-  },
+  // {
+  //   icon: Wallet2,
+  //   route: "/banks-and-cards",
+  //   label: "My Banks & Cards",
+  // },
   {
     icon: Receipt,
     route: "/transaction-history",
