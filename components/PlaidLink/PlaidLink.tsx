@@ -70,13 +70,13 @@ const PlaidLink = ({ user, type }: PlaidLinkProps) => {
         onClick={() => open()}
         disabled={!ready || !token || loading}
         className={cn(
-          "flex gap-3 items-center min-w-max px-6 py-4 xl:pl-1 pt-4 md:pt-5 md:max-xl:justify-center xl:justify-start w-full text-stone-800",
+          "flex items-center",
           {
             "opacity-50 cursor-not-allowed": !ready || !token || loading,
           },
           type === "right-sidebar"
             ? "p-0 gap-1 hover:text-stone-900 transition-all duration-200 text-stone-500"
-            : ""
+            : "gap-3 min-w-max px-6 py-4 xl:pl-1 pt-4 md:pt-5 md:max-xl:justify-center xl:justify-start w-full text-stone-800"
         )}
         type="button"
       >

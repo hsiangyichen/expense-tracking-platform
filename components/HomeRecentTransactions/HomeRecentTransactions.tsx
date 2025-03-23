@@ -16,7 +16,7 @@ import { formUrlQuery } from "@/lib/utils";
 import { HomeRecentTransactionsProps } from "./HomeRecentTransactions.types";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Notfound } from "@/components/Notfound";
 
 const HomeRecentTransactions = ({
@@ -43,6 +43,14 @@ const HomeRecentTransactions = ({
 
     router.replace(newUrl, { scroll: false });
   };
+
+  useEffect(() => {
+    if (selectedAccountId) {
+      setCurrentTab(selectedAccountId);
+    } else if (accounts.length > 0 && !currentTab) {
+      setCurrentTab(accounts[0].accountId);
+    }
+  }, [accounts, selectedAccountId, currentTab]);
 
   return (
     <section className="flex flex-col h-full">
